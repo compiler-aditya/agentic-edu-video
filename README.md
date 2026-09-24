@@ -1,13 +1,16 @@
 # EduVideo Agent — agentic AI whiteboard-video generator
 
 Give it a topic such as **`Class 7 → Science → Photosynthesis`** and a team of AI agents produces a
-30–60 second **whiteboard explainer video with Hindi narration** (or another Indian language):
+30–60 second **whiteboard explainer video with conversational Hindi narration** (or another Indian
+language), spoken like a teacher talking to a student:
 
 - a pen **writes** each scene title,
 - the diagram is **sketched stroke by stroke**, then coloured in,
 - Hindi **labels are written with pointer lines** to the exact part they name,
 - **arrows draw themselves and keep flowing** to show movement (water rising, light arriving, gas entering),
 - summary lines such as the word equation are **handwritten on the board**,
+- the narration is recorded as **one continuous, expressive take** (ElevenLabs), so it flows like
+  a conversation instead of sentence-by-sentence reading,
 - captions **highlight each word as it is spoken**.
 
 Every pen action starts on the word the narrator is saying. Every generating agent is paired with a
@@ -23,28 +26,28 @@ with its [run report](samples/class7-science-photosynthesis-hi/report.md),
 
 | Sample run | Result |
 |---|---|
-| Length | **51.6 s** (requirement: 30–60 s), 5 scenes, Hindi narration |
-| A/V drift (video vs audio stream) | **3 ms** |
-| Pen actions started on their spoken cue word | **17 / 17**, median start lag **0 ms** (32 animation events in total) |
-| TTS timestamp calibration | edge-tts timestamps led the audible speech by 95–190 ms; corrected before anything was scheduled |
+| Length | **48.3 s** (requirement: 30–60 s), 5 scenes |
+| Narration | **one continuous ElevenLabs take** (`eleven_v3`, Hindi voice "Aarohi"), 45.3 s, cut into scenes in the middle of the natural pauses; conversational script ("तो सामग्री क्या है?", "पर पकाएगा कौन?") |
 | ASR round-trip (narration heard vs script) | 0.98–1.00 on every scene |
-| Script review | rejected twice (7/10, 8/10: the word equation was missing, then scene 5 was too long), approved in round 3 (9/10) |
-| Storyboard validator | 2 issues repaired on the first draft; 7 cue issues repaired after the narration was retimed |
-| Duration loop | first narration measured 58.5 s → writer shortened all scenes → re-reviewed → re-narrated → 51.6 s |
-| Visual critic + grounder | all 5 drawings 10/10, every storyboard part located |
+| A/V drift (video vs audio stream) | **0 ms** |
+| Pen actions started on their spoken cue word | **15 / 15**, median start lag **0 ms** (30 animation events in total) |
+| Timestamp calibration | ElevenLabs timestamps led the audible speech by 135–263 ms per scene; corrected before scheduling |
+| Script review | approved in round 1 (8/10), noted as "conversational, teacher-like" |
+| Storyboard validator | 3 issues on the first draft → repaired → valid |
+| Visual critic + grounder | scenes 2, 3, 5 approved 10/10 first time; scene 1 (sun drawn inside the window frame) and scene 4 (a stray letter on the sugar cubes) rejected, redrawn, approved 10/10 |
 | Final QA (vision check of every scene's final frame) | PASS 5/5 |
 
-The sample was produced by one full run ($1.85, 8.6 min). It was then re-rendered twice from the
-same cached script, storyboard and audio after two renderer fixes: arrow tags now avoid labels,
-and dense textures are thinned in the sketch. The first re-render also redrew four drawings
-because of a cache-key bug, since fixed. `run_log.jsonl` contains all three sessions; total spend
-was $2.73.
+The sample came from one full run ($1.51 OpenRouter, about 390 ElevenLabs characters, 6.8 min). It
+was then re-rendered once from the same cached script, narration and drawings after a renderer fix:
+arrow tags now also avoid covering the drawing. Final QA had flagged a tag over the clouds in scene 2.
+The re-render cost $0.05, and `run_log.jsonl` contains both sessions.
 
 ---
 
 ## Quick start
 
-Requirements: **Python 3.12+** and an **OpenRouter API key**. Nothing else needs a system install:
+Requirements: **Python 3.12+**, an **OpenRouter API key**, and (recommended) an **ElevenLabs API key**
+for the conversational narration; without it the free edge-tts voices are used. Nothing else needs a system install:
 ffmpeg comes as a static binary via `imageio-ffmpeg`, and Indic text shaping uses
 HarfBuzz/FreeType wheels. On Linux, install Noto fonts (`sudo apt install fonts-noto-core`); macOS
 and Windows already ship suitable fonts.
@@ -52,7 +55,7 @@ and Windows already ship suitable fonts.
 ```bash
 # with uv (recommended)
 uv sync
-cp .env.example .env            # then put your OPENROUTER_API_KEY in .env
+cp .env.example .env            # then add OPENROUTER_API_KEY (and ELEVENLABS_API_KEY) to .env
 uv run eduvideo "Class 7 → Science → Photosynthesis"
 
 # or with pip
@@ -73,15 +76,16 @@ uv run eduvideo "Class 7 → Science → Photosynthesis" --resume output/<run-di
 | Flag | Meaning |
 |---|---|
 | `--lang` | `hi` (default), `mr`, `bn`, `gu`, `ta`, `te`, `kn`, `ml`, `en` |
-| `--seconds` | target length, 30–60 (default 45) |
+| `--seconds` | target length, 30–60 (default 50) |
 | `--models` | `best` (default) or `fast`; see [Models](#models) |
+| `--tts` | `auto` (default: ElevenLabs if a key is set), `elevenlabs` or `edge` |
 | `--resume DIR` | reuse the approved plan, script, storyboard, audio and drawings from a previous run |
 | `--no-images` | skip image generation (board with handwritten text only) |
 | `--no-asr-check` | skip the ASR round-trip audio check |
 
-With the `best` models a run takes about 8–9 minutes and costs about **$1.30–1.90** in OpenRouter
-credits (five pro-tier illustrations plus critic/grounder calls are most of it); `--models fast` is
-about $0.40. `EDUVIDEO_MAX_COST_USD` sets a hard ceiling per run (default $4).
+With the `best` models a run takes about 7–9 minutes and costs about **$1.30–1.90** in OpenRouter
+credits (five pro-tier illustrations plus critic/grounder calls are most of it) plus ~400 ElevenLabs
+characters for the narration; `--models fast` is about $0.40. `EDUVIDEO_MAX_COST_USD` sets a hard ceiling per run (default $4).
 
 ### Output (`output/<run>/`)
 
@@ -104,14 +108,14 @@ about $0.40. `EDUVIDEO_MAX_COST_USD` sets a hard ceiling per run (default $4).
 | Agent | Produces | Checked by |
 |---|---|---|
 | **Curriculum Planner** | learning objectives, 4–5 scenes with time budgets, one diagram idea per scene | deterministic normaliser (scene count, time budget) |
-| **Script Writer** | Hindi narration and titles that name the parts to point at | **Script Reviewer** |
-| **Script Reviewer** (different model family from the writer) | approve/reject with severity-ranked issues | plus rules: ≥97 % Devanagari, no Latin/symbols the voice would misread, per-scene word budget |
+| **Script Writer** | conversational Hindi narration (a teacher talking to a student: questions, connecting words, scenes that lead into each other) and titles | **Script Reviewer** |
+| **Script Reviewer** (different model family from the writer) | approve/reject with severity-ranked issues, including "reads like disconnected textbook sentences" | plus rules: ≥97 % Devanagari, no Latin/symbols the voice would misread, no ellipses (long pauses), per-scene word budget |
 | **Storyboard** (visual director) | per scene: layout (diagram / board), parts to draw, labels, arrows, highlights and board lines, each tied to a **cue**: words copied from the narration | deterministic validator: cue verbatim in narration, target part exists, text fits, counts per layout; failures go back for repair |
 | **Visual Agent** | a text-free textbook diagram on white (so it can be sketched on the board); frames stripped, content fitted | **Visual Critic** |
 | **Visual Critic** | relevance, scientific accuracy, garbled text, every storyboard part present, improved prompt | — |
 | **Grounder** | the location of every part (box and pointer point) from a vision model; missing parts send the image back | Final QA |
-| **Narrator** | per-scene audio from edge-tts neural voices (`hi-IN-SwaraNeural`, …) with word timestamps; OpenRouter `gpt-audio-mini` as fallback | **Audio QA** |
-| **Audio QA** | timestamp calibration against the waveform, coverage, speaking rate, ASR round-trip similarity ≥ 0.80 | — |
+| **Narrator** | the **whole lesson in one ElevenLabs take** (`eleven_v3`, Hindi voice "Aarohi", speed 1.15), cut into scenes in the middle of the natural pauses; word timings from ElevenLabs' character alignment. Fallback: per-scene edge-tts voices, then OpenRouter `gpt-audio-mini` | **Audio QA** |
+| **Audio QA** | timestamp calibration against the waveform, coverage, speaking rate, ASR round-trip similarity ≥ 0.85 (catches mispronounced or hallucinated words); a failed scene re-records the whole lesson | — |
 | **Duration Check** | measured total vs 30–60 s | loops back to Writer (retime) → Reviewer → Storyboard (re-cue) |
 | **Sync Agent** | calibrated captions, and every pen action scheduled on its cue word (one pen, so actions never overlap) | timeline validator |
 | **Whiteboard Renderer** | the frames, H.264 + AAC | **Final QA** |
@@ -128,7 +132,7 @@ All model calls go through OpenRouter. Any role can be overridden with `EDUVIDEO
 | visual critic, grounder, final QA (vision) | `google/gemini-3.1-pro-preview` | `google/gemini-3.8-flash` |
 | audio QA (ASR) | `google/gemini-3.1-pro-preview` | `google/gemini-3.8-flash` |
 | illustrations | `google/gemini-3-pro-image` | `google/gemini-3.1-flash-image` |
-| narration | edge-tts `hi-IN-SwaraNeural` (alternate `hi-IN-MadhurNeural`) | same |
+| narration | ElevenLabs `eleven_v3`, voice Aarohi (third take: Ankit on `eleven_multilingual_v2`); without a key, edge-tts `hi-IN-SwaraNeural` | same |
 
 ### Orchestration and feedback loops
 
@@ -143,8 +147,9 @@ machine that owns every loop and its retry budget:
 3. **Visual loop (per scene, runs in parallel with audio):** draw → critic → grounder. It redraws
    with the critic's improved prompt, or when a part can't be located. Up to 3 attempts; the best
    image wins.
-4. **Audio loop (per scene):** synthesize → QA. A failed take is re-synthesized; the third
-   attempt uses an alternate voice.
+4. **Audio loop:** synthesize → QA every scene. With ElevenLabs a failure re-records the whole
+   lesson, so the flow is never broken by a patched-in sentence. The third attempt uses the
+   alternate voice/model.
 5. **Duration loop:** if the measured total falls outside 30–60 s, the Writer retimes those
    scenes using per-scene word targets computed from the measured speaking rate. The Reviewer
    re-checks them, the Storyboard re-cues the annotations (drawings stay locked), and only
@@ -156,20 +161,22 @@ machine that owns every loop and its retry budget:
 
 Everything is driven by **one clock: the calibrated TTS word timestamps.**
 
-1. edge-tts returns a timestamp for every spoken word. They are aligned to the script tokens
-   using sequence alignment (punctuation kept for display).
+1. The TTS engine returns timings for every spoken word (edge-tts word boundaries; ElevenLabs
+   character alignment for the whole lesson, which is also where the scene cuts come from). They are
+   aligned to the script tokens using sequence alignment (punctuation kept for display).
 2. **Calibration.** Wherever speech resumes after a pause, the audible onset is compared with the
-   timestamp of the word spoken there. The median gap is the offset; edge-tts timestamps run about
-   140–210 ms early, so without this every highlight and label would appear before the word is
-   heard. Audio QA rejects takes whose offset is implausible or inconsistent.
+   timestamp of the word spoken there (speech is detected relative to the recording's room tone).
+   The median gap is the offset: ElevenLabs timestamps ran ~230–240 ms early and edge-tts ~100–210 ms,
+   so without this every highlight and label would appear before the word is heard. Audio QA
+   rejects takes whose offset is implausible or inconsistent.
 3. **Cue scheduling.** Each storyboard cue (e.g. "पत्ती") is matched to the moment it is spoken.
    If the word occurs more than once, the first occurrence after the drawing is ready is used.
    The pen then writes the label, draws the arrow, or circles the part starting on that word.
    The sketch phase is timed to finish just before the first cue, and one-pen scheduling
    guarantees two actions never overlap.
-4. Scene *n*'s narration starts at `lead_in + Σ(previous clip durations + gaps)`. The master
-   audio is assembled at exactly those sample offsets, and the slide to the next board sits in
-   the silent gap.
+4. With ElevenLabs the scene slices are laid back to back, so the master audio is the original
+   continuous take (one shared loudness gain) and each slide to the next board sits in the middle
+   of the natural pause between scenes. With per-scene TTS, clips are joined with a fixed gap.
 5. Captions are chunked at clause punctuation, never starting a line on a postposition such as
    "के | लिए". The spoken word is highlighted.
 6. The total length is rounded up to a whole frame and the audio padded to match, so video and
@@ -196,7 +203,7 @@ each part is, so a label's pointer lands on the part it names.
 - **Graceful degradation:**
   - critic unavailable → image accepted, marked unreviewed;
   - no image → board with handwritten text only;
-  - edge-tts down → OpenRouter TTS with timings estimated from the waveform;
+  - ElevenLabs unavailable → per-scene edge-tts; edge-tts down → OpenRouter TTS with timings estimated from the waveform;
   - ASR check unavailable → skipped and logged.
 - **Resume:** every stage writes its artefacts. `--resume` reuses approved work (a drawing is
   reused only if its scene's narration and storyboard are unchanged) and re-synthesizes only

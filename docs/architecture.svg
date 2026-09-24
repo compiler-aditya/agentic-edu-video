@@ -80,14 +80,14 @@
 
   <!-- audio branch -->
   <rect x="540" y="448" width="320" height="56" rx="10" class="tool"/>
-  <text x="700" y="471" text-anchor="middle" class="t">Narrator (TTS)</text>
-  <text x="700" y="490" text-anchor="middle" class="s">hi-IN neural voice · word timestamps</text>
+  <text x="700" y="471" text-anchor="middle" class="t">Narrator (ElevenLabs)</text>
+  <text x="700" y="490" text-anchor="middle" class="s">whole lesson in one expressive take · cut at pauses</text>
   <rect x="540" y="530" width="320" height="56" rx="10" class="qa"/>
   <text x="700" y="553" text-anchor="middle" class="t">Audio QA</text>
   <text x="700" y="572" text-anchor="middle" class="s">timestamp calibration · coverage · ASR round-trip</text>
   <path d="M650 504 V528" class="e"/>
   <path d="M760 530 V506" class="lp"/>
-  <text x="770" y="522" class="l">re-take / alt voice</text>
+  <text x="770" y="522" class="l">re-take lesson / alt voice</text>
   <rect x="930" y="530" width="290" height="56" rx="10" class="qa"/>
   <text x="1075" y="553" text-anchor="middle" class="t">Duration Check</text>
   <text x="1075" y="572" text-anchor="middle" class="s">measured total must be 30–60 s</text>
