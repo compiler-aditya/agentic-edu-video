@@ -1,0 +1,15 @@
+{
+ "key": "13156857cfc5",
+ "track": "audio/music_take1.mp3",
+ "prompt": "Gentle, curious and positive instrumental background music for a 48-second educational whiteboard explainer about photosynthesis for Class 7 students. Soft felt piano playing a simple, warm melodic pattern, light marimba plucks and delicate plucked strings (pizzicato or acoustic guitar harmonics), supported by a soft, airy synth pad. A subtle Indian touch: a light, sparse santoor or soft sitar motif that appears gently and repeats, evoking sunlight, green leaves and growing plants. Steady moderate tempo around 90-95 BPM, consistent low-to-medium volume from start to finish, sitting comfortably underneath a warm teacher narration voice. Major key, bright but calm, sense of wonder and discovery. No vocals, no drums or percussion hits, no drops, no build-ups, no crescendos, no sudden changes in dynamics or arrangement. Smooth, even, loop-friendly texture with a soft natural ending.",
+ "attempts": [
+  {
+   "attempt": 1,
+   "track": "audio/music_take1.mp3",
+   "score": 10,
+   "approved": true,
+   "loudness_jump_db": 7.2,
+   "problems": []
+  }
+ ]
+}

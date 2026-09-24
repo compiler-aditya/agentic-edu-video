@@ -8,8 +8,8 @@
 | Captions | 16 chunks, 72 word timestamps |
 | Pen actions (write / draw / label / arrow) | 30 total, 15 started on their spoken cue word |
 | TTS rate | +0% |
-| API calls / cost | 31 calls, $1.555 across 2 sessions (resumed) |
-| Wall time (this session) | 38s |
+| API calls / cost | 39 calls, $1.704 across 4 sessions (resumed) |
+| Wall time (this session) | 71s |
 
 ## Models
 
@@ -42,6 +42,8 @@
 
 | Round | Total (s) | Per-scene audio (s) |
 |---|---|---|
+| 1 | 48.28 | s1: 7.65, s2: 10.23, s3: 8.79, s4: 9.99, s5: 8.62 |
+| 1 | 48.28 | s1: 7.65, s2: 10.23, s3: 8.79, s4: 9.99, s5: 8.62 |
 | 1 | 48.28 | s1: 7.65, s2: 10.23, s3: 8.79, s4: 9.99, s5: 8.62 |
 | 1 | 48.28 | s1: 7.65, s2: 10.23, s3: 8.79, s4: 9.99, s5: 8.62 |
 
@@ -96,6 +98,12 @@
 - **Layout:** board; drawing: _Clean flat vector illustration with bold dark outlines, simple bright greens, yellows and blues, on a pure white background, textbook-diagram style with no text_
 - **Synced pen actions:** title @ 38.91s, draw @ 39.74s, color @ 42.14s, writes “कार्बन डाइऑक्साइड + पानी” @ 40.88s on “और पानी,” (spoken 40.88s), writes “→ (धूप + क्लोरोफिल) →” @ 43.17s on “और क्लोरोफिल” (spoken 43.17s), writes “ग्लूकोज़ + ऑक्सीजन” @ 44.88s on “ग्लूकोज़ और” (spoken 44.88s)
 - **Visual:** cached; attempts: #1 score 10 ✅
+
+## Background music (Music agent)
+
+- **Prompt:** Gentle, curious and positive instrumental background music for a 48-second educational whiteboard explainer about photosynthesis for Class 7 students. Soft felt piano playing a simple, warm melodic pattern, light marimba plucks and delicate plucked strings (pizzicato or acoustic guitar harmonics), supported by a soft, airy synth pad. A subtle Indian touch: a light, sparse santoor or soft sitar motif that appears gently and repeats, evoking sunlight, green leaves and growing plants. Steady moderate tempo around 90-95 BPM, consistent low-to-medium volume from start to finish, sitting comfortably underneath a warm teacher narration voice. Major key, bright but calm, sense of wonder and discovery. No vocals, no drums or percussion hits, no drops, no build-ups, no crescendos, no sudden changes in dynamics or arrangement. Smooth, even, loop-friendly texture with a soft natural ending.
+- **Takes:** #1 score 10/10 ✅
+- **Mix:** bed -30 dB, ducked under every spoken word; narration ASR on the final mix 0.998, balance 10/10
 
 ## Final QA (vision check of rendered keyframes)
 
@@ -208,4 +216,77 @@
 [  38.1s] final_qa        frame     scene 4: ok
 [  38.1s] final_qa        frame     scene 5: ok
 [  38.1s] final_qa        verdict   PASS
+[  38.1s] orchestrator    done      output/class7-science-photosynthesis-hi-20260924-201621/final.mp4 (48.3s) — 1 API calls, $0.048, 38s wall time
+---- resumed session ----
+[   0.0s] orchestrator    start     Class 7 → Science → Photosynthesis (narration language: Hindi)
+[   0.0s] orchestrator    models    preset 'best': planner=anthropic/claude-opus-5.5, writer=anthropic/claude-opus-5.5, reviewer=openai/gpt-5.5, vision=google/gemini-3.1-pro-preview, audio=google/gemini-3.1-pro-preview, image=google/gemini-3-pro-image
+[   0.0s] orchestrator    tts       narration engine: ElevenLabs eleven_v3 voice rqIg3iVrlZOAkxCMdelQ (whole-lesson take)
+[   0.0s] orchestrator    resume    loaded plan.json
+[   0.0s] orchestrator    resume    loaded approved script.json
+[   0.0s] orchestrator    resume    loaded valid storyboard.json
+[   0.0s] orchestrator    fanout    visual agent and narrator agent running in parallel
+[   0.0s] narrator        cache     lesson narration unchanged, reusing the ElevenLabs take
+[   0.0s] visual          start     drawing 5 illustrations with google/gemini-3-pro-image
+[   0.0s] visual          cache     scene 1: approved drawing unchanged — reusing
+[   0.0s] visual          cache     scene 2: approved drawing unchanged — reusing
+[   0.0s] visual          cache     scene 3: approved drawing unchanged — reusing
+[   0.0s] visual          cache     scene 4: approved drawing unchanged — reusing
+[   0.0s] visual          cache     scene 5: approved drawing unchanged — reusing
+[   0.0s] orchestrator    duration  round 1: 48.3s is inside 31.5-58.5s ✓
+[   0.1s] sync            calibrate scene 1: TTS timestamps shifted +135 ms to match audible speech
+[   0.1s] sync            calibrate scene 2: TTS timestamps shifted +263 ms to match audible speech
+[   0.1s] sync            calibrate scene 3: TTS timestamps shifted +178 ms to match audible speech
+[   0.1s] sync            calibrate scene 4: TTS timestamps shifted +201 ms to match audible speech
+[   0.1s] sync            calibrate scene 5: TTS timestamps shifted +235 ms to match audible speech
+[   0.1s] sync            validate  timeline OK: captions monotonic, events inside their scenes, narration inside visual slots
+[   0.1s] sync            done      timeline 48.32s (1208 frames), 16 captions, 30 animation events; 15 cued to spoken words, median start lag 0 ms
+[   8.9s] music           brief     mood 'Curious, warm, hopeful': Instrumental background music for a 48-second whiteboard explainer video on photosynthesis for Class 7 students, designed to sit softly underneath a w
+[  25.3s] music           verdict   take 1: REJECTED score=10/10, max loudness jump 47.9 dB — loudness jumps by 48 dB
+[  78.0s] music           verdict   take 2: REJECTED score=10/10, max loudness jump 44.9 dB — loudness jumps by 45 dB
+[  78.0s] music           drop      no acceptable track; the video keeps narration only
+[  78.0s] renderer        start     rendering whiteboard video 48.32s @ 25fps 1280x720
+[  88.2s] renderer        done      wrote final.mp4 (2.9 MB)
+[  88.4s] final_qa        probe     video 48.320s, audio 48.320s, drift 0 ms, decode OK
+[ 119.7s] final_qa        frame     scene 1: ok
+[ 119.7s] final_qa        frame     scene 2: ok
+[ 119.7s] final_qa        frame     scene 3: ok
+[ 119.7s] final_qa        frame     scene 4: ok
+[ 119.7s] final_qa        frame     scene 5: ok
+[ 119.7s] final_qa        verdict   PASS
+[ 119.8s] orchestrator    done      output/class7-science-photosynthesis-hi-20260924-201621/final.mp4 (48.3s) — 4 API calls, $0.078, 120s wall time
+---- resumed session ----
+[   0.0s] orchestrator    start     Class 7 → Science → Photosynthesis (narration language: Hindi)
+[   0.0s] orchestrator    models    preset 'best': planner=anthropic/claude-opus-5.5, writer=anthropic/claude-opus-5.5, reviewer=openai/gpt-5.5, vision=google/gemini-3.1-pro-preview, audio=google/gemini-3.1-pro-preview, image=google/gemini-3-pro-image
+[   0.0s] orchestrator    tts       narration engine: ElevenLabs eleven_v3 voice rqIg3iVrlZOAkxCMdelQ (whole-lesson take)
+[   0.0s] orchestrator    resume    loaded plan.json
+[   0.0s] orchestrator    resume    loaded approved script.json
+[   0.0s] orchestrator    resume    loaded valid storyboard.json
+[   0.0s] orchestrator    fanout    visual agent and narrator agent running in parallel
+[   0.0s] narrator        cache     lesson narration unchanged, reusing the ElevenLabs take
+[   0.0s] visual          start     drawing 5 illustrations with google/gemini-3-pro-image
+[   0.0s] visual          cache     scene 1: approved drawing unchanged — reusing
+[   0.0s] visual          cache     scene 2: approved drawing unchanged — reusing
+[   0.0s] orchestrator    duration  round 1: 48.3s is inside 31.5-58.5s ✓
+[   0.0s] visual          cache     scene 3: approved drawing unchanged — reusing
+[   0.0s] visual          cache     scene 5: approved drawing unchanged — reusing
+[   0.0s] visual          cache     scene 4: approved drawing unchanged — reusing
+[   0.2s] sync            calibrate scene 1: TTS timestamps shifted +135 ms to match audible speech
+[   0.2s] sync            calibrate scene 2: TTS timestamps shifted +263 ms to match audible speech
+[   0.2s] sync            calibrate scene 3: TTS timestamps shifted +178 ms to match audible speech
+[   0.2s] sync            calibrate scene 4: TTS timestamps shifted +201 ms to match audible speech
+[   0.2s] sync            calibrate scene 5: TTS timestamps shifted +235 ms to match audible speech
+[   0.2s] sync            validate  timeline OK: captions monotonic, events inside their scenes, narration inside visual slots
+[   0.2s] sync            done      timeline 48.32s (1208 frames), 16 captions, 30 animation events; 15 cued to spoken words, median start lag 0 ms
+[   7.4s] music           brief     mood 'curious, warm, hopeful': Gentle, curious and positive instrumental background music for a 48-second educational whiteboard explainer about photosynthesis for Class 7 students.
+[  24.3s] music           verdict   take 1: APPROVED score=10/10, max loudness jump 7.2 dB
+[  43.8s] music           mix       bed -30 dB, ducked −14 dB under speech: narration ASR similarity 1.00, balance 10/10 ✓
+[  43.8s] renderer        start     rendering whiteboard video 48.32s @ 25fps 1280x720
+[  51.9s] renderer        done      wrote final.mp4 (3.0 MB)
+[  52.1s] final_qa        probe     video 48.320s, audio 48.320s, drift 0 ms, decode OK
+[  71.3s] final_qa        frame     scene 1: ok
+[  71.3s] final_qa        frame     scene 2: ok
+[  71.3s] final_qa        frame     scene 3: ok
+[  71.3s] final_qa        frame     scene 4: ok
+[  71.3s] final_qa        frame     scene 5: ok
+[  71.3s] final_qa        verdict   PASS
 ```

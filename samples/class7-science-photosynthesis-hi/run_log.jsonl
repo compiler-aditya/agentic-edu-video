@@ -123,3 +123,82 @@
 {"t": 38.09, "agent": "final_qa", "event": "frame", "message": "scene 5: ok"}
 {"t": 38.09, "agent": "final_qa", "event": "verdict", "message": "PASS"}
 {"t": 38.1, "agent": "orchestrator", "event": "done", "message": "output/class7-science-photosynthesis-hi-20260924-201621/final.mp4 (48.3s) — 1 API calls, $0.048, 38s wall time"}
+{"t": 0.02, "agent": "orchestrator", "event": "start", "message": "Class 7 → Science → Photosynthesis (narration language: Hindi)", "run_dir": "output/class7-science-photosynthesis-hi-20260924-201621"}
+{"t": 0.02, "agent": "orchestrator", "event": "models", "message": "preset 'best': planner=anthropic/claude-opus-5.5, writer=anthropic/claude-opus-5.5, reviewer=openai/gpt-5.5, vision=google/gemini-3.1-pro-preview, audio=google/gemini-3.1-pro-preview, image=google/gemini-3-pro-image", "models": {"planner": "anthropic/claude-opus-5.5", "writer": "anthropic/claude-opus-5.5", "reviewer": "openai/gpt-5.5", "vision": "google/gemini-3.1-pro-preview", "audio": "google/gemini-3.1-pro-preview", "image": "google/gemini-3-pro-image"}}
+{"t": 0.02, "agent": "orchestrator", "event": "tts", "message": "narration engine: ElevenLabs eleven_v3 voice rqIg3iVrlZOAkxCMdelQ (whole-lesson take)"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded plan.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded approved script.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded valid storyboard.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "fanout", "message": "visual agent and narrator agent running in parallel"}
+{"t": 0.02, "agent": "narrator", "event": "cache", "message": "lesson narration unchanged, reusing the ElevenLabs take"}
+{"t": 0.02, "agent": "visual", "event": "start", "message": "drawing 5 illustrations with google/gemini-3-pro-image"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 1: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 2: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 3: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 4: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 5: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "orchestrator", "event": "duration", "message": "round 1: 48.3s is inside 31.5-58.5s ✓"}
+{"t": 0.12, "agent": "sync", "event": "calibrate", "message": "scene 1: TTS timestamps shifted +135 ms to match audible speech"}
+{"t": 0.12, "agent": "sync", "event": "calibrate", "message": "scene 2: TTS timestamps shifted +263 ms to match audible speech"}
+{"t": 0.12, "agent": "sync", "event": "calibrate", "message": "scene 3: TTS timestamps shifted +178 ms to match audible speech"}
+{"t": 0.12, "agent": "sync", "event": "calibrate", "message": "scene 4: TTS timestamps shifted +201 ms to match audible speech"}
+{"t": 0.12, "agent": "sync", "event": "calibrate", "message": "scene 5: TTS timestamps shifted +235 ms to match audible speech"}
+{"t": 0.13, "agent": "sync", "event": "validate", "message": "timeline OK: captions monotonic, events inside their scenes, narration inside visual slots"}
+{"t": 0.13, "agent": "sync", "event": "done", "message": "timeline 48.32s (1208 frames), 16 captions, 30 animation events; 15 cued to spoken words, median start lag 0 ms"}
+{"t": 8.94, "agent": "llm", "event": "call", "message": "music.brief", "model": "anthropic/claude-opus-5.5", "cost": 0.009672, "latency": 8.79}
+{"t": 8.94, "agent": "music", "event": "brief", "message": "mood 'Curious, warm, hopeful': Instrumental background music for a 48-second whiteboard explainer video on photosynthesis for Class 7 students, designed to sit softly underneath a w"}
+{"t": 25.33, "agent": "llm", "event": "call", "message": "music.listen", "model": "google/gemini-3.1-pro-preview", "cost": 0.006968, "latency": 7.58}
+{"t": 25.33, "agent": "music", "event": "verdict", "message": "take 1: REJECTED score=10/10, max loudness jump 47.9 dB — loudness jumps by 48 dB"}
+{"t": 78.0, "agent": "llm", "event": "call", "message": "music.listen", "model": "google/gemini-3.1-pro-preview", "cost": 0.008282, "latency": 17.85}
+{"t": 78.0, "agent": "music", "event": "verdict", "message": "take 2: REJECTED score=10/10, max loudness jump 44.9 dB — loudness jumps by 45 dB"}
+{"t": 78.0, "agent": "music", "event": "drop", "message": "no acceptable track; the video keeps narration only"}
+{"t": 78.01, "agent": "renderer", "event": "start", "message": "rendering whiteboard video 48.32s @ 25fps 1280x720"}
+{"t": 88.2, "agent": "renderer", "event": "done", "message": "wrote final.mp4 (2.9 MB)"}
+{"t": 88.4, "agent": "final_qa", "event": "probe", "message": "video 48.320s, audio 48.320s, drift 0 ms, decode OK"}
+{"t": 119.73, "agent": "llm", "event": "call", "message": "final_qa.frames", "model": "google/gemini-3.1-pro-preview", "cost": 0.053486, "latency": 31.33}
+{"t": 119.74, "agent": "final_qa", "event": "frame", "message": "scene 1: ok"}
+{"t": 119.74, "agent": "final_qa", "event": "frame", "message": "scene 2: ok"}
+{"t": 119.74, "agent": "final_qa", "event": "frame", "message": "scene 3: ok"}
+{"t": 119.74, "agent": "final_qa", "event": "frame", "message": "scene 4: ok"}
+{"t": 119.74, "agent": "final_qa", "event": "frame", "message": "scene 5: ok"}
+{"t": 119.74, "agent": "final_qa", "event": "verdict", "message": "PASS"}
+{"t": 119.75, "agent": "orchestrator", "event": "done", "message": "output/class7-science-photosynthesis-hi-20260924-201621/final.mp4 (48.3s) — 4 API calls, $0.078, 120s wall time"}
+{"t": 0.02, "agent": "orchestrator", "event": "start", "message": "Class 7 → Science → Photosynthesis (narration language: Hindi)", "run_dir": "output/class7-science-photosynthesis-hi-20260924-201621"}
+{"t": 0.02, "agent": "orchestrator", "event": "models", "message": "preset 'best': planner=anthropic/claude-opus-5.5, writer=anthropic/claude-opus-5.5, reviewer=openai/gpt-5.5, vision=google/gemini-3.1-pro-preview, audio=google/gemini-3.1-pro-preview, image=google/gemini-3-pro-image", "models": {"planner": "anthropic/claude-opus-5.5", "writer": "anthropic/claude-opus-5.5", "reviewer": "openai/gpt-5.5", "vision": "google/gemini-3.1-pro-preview", "audio": "google/gemini-3.1-pro-preview", "image": "google/gemini-3-pro-image"}}
+{"t": 0.02, "agent": "orchestrator", "event": "tts", "message": "narration engine: ElevenLabs eleven_v3 voice rqIg3iVrlZOAkxCMdelQ (whole-lesson take)"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded plan.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded approved script.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded valid storyboard.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "fanout", "message": "visual agent and narrator agent running in parallel"}
+{"t": 0.02, "agent": "narrator", "event": "cache", "message": "lesson narration unchanged, reusing the ElevenLabs take"}
+{"t": 0.02, "agent": "visual", "event": "start", "message": "drawing 5 illustrations with google/gemini-3-pro-image"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 1: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 2: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "orchestrator", "event": "duration", "message": "round 1: 48.3s is inside 31.5-58.5s ✓"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 3: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 5: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 4: approved drawing unchanged — reusing"}
+{"t": 0.16, "agent": "sync", "event": "calibrate", "message": "scene 1: TTS timestamps shifted +135 ms to match audible speech"}
+{"t": 0.16, "agent": "sync", "event": "calibrate", "message": "scene 2: TTS timestamps shifted +263 ms to match audible speech"}
+{"t": 0.16, "agent": "sync", "event": "calibrate", "message": "scene 3: TTS timestamps shifted +178 ms to match audible speech"}
+{"t": 0.16, "agent": "sync", "event": "calibrate", "message": "scene 4: TTS timestamps shifted +201 ms to match audible speech"}
+{"t": 0.16, "agent": "sync", "event": "calibrate", "message": "scene 5: TTS timestamps shifted +235 ms to match audible speech"}
+{"t": 0.17, "agent": "sync", "event": "validate", "message": "timeline OK: captions monotonic, events inside their scenes, narration inside visual slots"}
+{"t": 0.18, "agent": "sync", "event": "done", "message": "timeline 48.32s (1208 frames), 16 captions, 30 animation events; 15 cued to spoken words, median start lag 0 ms"}
+{"t": 7.4, "agent": "llm", "event": "call", "message": "music.brief", "model": "anthropic/claude-opus-5.5", "cost": 0.009252, "latency": 7.19}
+{"t": 7.4, "agent": "music", "event": "brief", "message": "mood 'curious, warm, hopeful': Gentle, curious and positive instrumental background music for a 48-second educational whiteboard explainer about photosynthesis for Class 7 students."}
+{"t": 24.27, "agent": "llm", "event": "call", "message": "music.listen", "model": "google/gemini-3.1-pro-preview", "cost": 0.006578, "latency": 8.04}
+{"t": 24.28, "agent": "music", "event": "verdict", "message": "take 1: APPROVED score=10/10, max loudness jump 7.2 dB"}
+{"t": 43.83, "agent": "llm", "event": "call", "message": "music.clarity", "model": "google/gemini-3.1-pro-preview", "cost": 0.022886, "latency": 19.46}
+{"t": 43.83, "agent": "music", "event": "mix", "message": "bed -30 dB, ducked −14 dB under speech: narration ASR similarity 1.00, balance 10/10 ✓"}
+{"t": 43.84, "agent": "renderer", "event": "start", "message": "rendering whiteboard video 48.32s @ 25fps 1280x720"}
+{"t": 51.93, "agent": "renderer", "event": "done", "message": "wrote final.mp4 (3.0 MB)"}
+{"t": 52.11, "agent": "final_qa", "event": "probe", "message": "video 48.320s, audio 48.320s, drift 0 ms, decode OK"}
+{"t": 71.32, "agent": "llm", "event": "call", "message": "final_qa.frames", "model": "google/gemini-3.1-pro-preview", "cost": 0.0315578, "latency": 19.21}
+{"t": 71.32, "agent": "final_qa", "event": "frame", "message": "scene 1: ok"}
+{"t": 71.32, "agent": "final_qa", "event": "frame", "message": "scene 2: ok"}
+{"t": 71.32, "agent": "final_qa", "event": "frame", "message": "scene 3: ok"}
+{"t": 71.32, "agent": "final_qa", "event": "frame", "message": "scene 4: ok"}
+{"t": 71.32, "agent": "final_qa", "event": "frame", "message": "scene 5: ok"}
+{"t": 71.32, "agent": "final_qa", "event": "verdict", "message": "PASS"}
+{"t": 71.33, "agent": "orchestrator", "event": "done", "message": "output/class7-science-photosynthesis-hi-20260924-201621/final.mp4 (48.3s) — 4 API calls, $0.070, 71s wall time"}
