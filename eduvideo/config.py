@@ -25,10 +25,15 @@ class Language:
     words_per_sec: float # initial speaking-rate estimate, refined after first TTS pass
     grade_word: str      # "Class" in the target language
     key_term: str        # "Key term" in the target language (card header)
+    el_voice: str = ""   # ElevenLabs voice (whole-lesson narration); empty = use edge-tts
+    el_alt_voice: str = ""
+    el_words_per_sec: float = 1.45
 
 
 LANGUAGES: dict[str, Language] = {
-    "hi": Language("hi", "Hindi", "हिन्दी", "hi-IN-SwaraNeural", "hi-IN-MadhurNeural", "Devanagari", 2.2, "कक्षा", "मुख्य शब्द"),
+    # ElevenLabs voices: Aarohi (calm, conversational Hindi teacher) with Ankit as the alternate take
+    "hi": Language("hi", "Hindi", "हिन्दी", "hi-IN-SwaraNeural", "hi-IN-MadhurNeural", "Devanagari", 2.2, "कक्षा", "मुख्य शब्द",
+                   el_voice="rqIg3iVrlZOAkxCMdelQ", el_alt_voice="Dy1awEdnuMQtEftpr6Pa", el_words_per_sec=1.45),
     "mr": Language("mr", "Marathi", "मराठी", "mr-IN-AarohiNeural", "mr-IN-ManoharNeural", "Devanagari", 2.0, "इयत्ता", "महत्त्वाचा शब्द"),
     "bn": Language("bn", "Bengali", "বাংলা", "bn-IN-TanishaaNeural", "bn-IN-BashkarNeural", "Bengali", 2.0, "শ্রেণী", "মূল শব্দ"),
     "gu": Language("gu", "Gujarati", "ગુજરાતી", "gu-IN-DhwaniNeural", "gu-IN-NiranjanNeural", "Gujarati", 2.0, "ધોરણ", "મુખ્ય શબ્દ"),
@@ -143,10 +148,18 @@ class Settings:
     image_model: str = ""
     image_max_tokens: int = field(default_factory=lambda: int(_env("EDUVIDEO_IMAGE_MAX_TOKENS", "8000")))
 
+    # Narration engine: "elevenlabs" (whole-lesson expressive narration), "edge" (free neural TTS),
+    # or "auto" = ElevenLabs when a key is configured and the language has a voice, else edge-tts.
+    tts: str = field(default_factory=lambda: _env("EDUVIDEO_TTS", "auto"))
+    elevenlabs_key: str = field(default_factory=lambda: os.environ.get("ELEVENLABS_API_KEY", ""))
+    el_model: str = field(default_factory=lambda: _env("EDUVIDEO_EL_MODEL", "eleven_v3"))
+    el_alt_model: str = "eleven_multilingual_v2"
+    el_speed: float = field(default_factory=lambda: float(_env("EDUVIDEO_EL_SPEED", "1.15")))
+
     # Video contract
     min_seconds: float = 30.0
     max_seconds: float = 60.0
-    target_seconds: float = 45.0
+    target_seconds: float = 50.0
     width: int = 1280
     height: int = 720
     fps: int = 25
@@ -182,3 +195,12 @@ class Settings:
 
     def model_table(self) -> dict[str, str]:
         return {role: getattr(self, f"{role}_model") for role in ROLES}
+
+    def use_elevenlabs(self, lang: Language) -> bool:
+        if self.tts == "edge":
+            return False
+        return bool(self.elevenlabs_key and lang.el_voice)
+
+    def speaking_rate(self, lang: Language) -> float:
+        """Words per second of the narration engine, used to budget script length."""
+        return lang.el_words_per_sec if self.use_elevenlabs(lang) else lang.words_per_sec

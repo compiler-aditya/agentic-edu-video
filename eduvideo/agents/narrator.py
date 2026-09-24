@@ -1,25 +1,33 @@
 """Narrator agent (TTS) + Audio QA agent.
 
-TTS: Microsoft neural voices via edge-tts (native Indian-language voices with
-word-boundary timestamps). If that service fails, OpenRouter's gpt-audio-mini is
-used as a fallback and word timings are estimated from the waveform.
+Two engines:
+  * ElevenLabs (default when ELEVENLABS_API_KEY is set): the WHOLE lesson is narrated in one
+    expressive take (eleven_v3), so intonation flows from sentence to sentence and scene to
+    scene like a teacher talking, instead of every sentence starting fresh. The take is cut
+    into scenes in the middle of the natural pauses between them, and word timings come from
+    ElevenLabs' character-level alignment.
+  * edge-tts: per-scene Microsoft neural voices with word-boundary events (free fallback);
+    OpenRouter gpt-audio-mini if that service is down.
 
 Audio QA per scene:
-  1. deterministic – non-empty audio, TTS word coverage, speech onset agrees with
-     the first word timestamp (catches timestamp drift), sane speaking rate;
-  2. ASR round-trip – an audio-capable LLM transcribes the clip and the transcript
-     is compared with the script; low similarity = mispronounced/skipped words.
-Failed takes are re-synthesised (second attempt same voice, then the alternate voice).
+  1. deterministic – non-empty audio, timestamp coverage, sane speaking rate, and the timestamp
+     offset against the audible onsets (calibration; both engines' timestamps run early);
+  2. ASR round-trip – an audio-capable LLM transcribes the clip and the transcript is compared
+     with the script; low similarity = mispronounced/skipped/hallucinated words.
+Failed takes are re-synthesised (ElevenLabs: the whole lesson; third attempt: alternate voice).
 """
 from __future__ import annotations
 
 import asyncio
 import base64
 import json
+import re
+import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 
 import edge_tts
+import httpx
 import numpy as np
 
 from ..audio import SR, decode, speech_bounds, write_wav
@@ -29,7 +37,7 @@ from ..textutil import similarity, text_hash
 from .base import Ctx
 from .sync import align_words, estimate_ts_offset, estimate_words
 
-ASR_THRESHOLD = 0.80
+ASR_THRESHOLD = 0.85
 
 
 @dataclass
@@ -115,6 +123,7 @@ def _qa(ctx: Ctx, scene: SceneScript, audio: SceneAudio) -> Take:
         problems.append("audio is empty or silent")
     onset, offset = speech_bounds(samples)
     coverage = audio.coverage
+    # both engines' timestamps lead the audible speech; measure it against the waveform
     ts_off, anchors = estimate_ts_offset(samples, audio.words)
     audio.ts_offset = round(ts_off, 3)
     # robust spread (median absolute deviation): a stray anchor must not fail a good take
@@ -152,7 +161,7 @@ def _qa(ctx: Ctx, scene: SceneScript, audio: SceneAudio) -> Take:
     ctx.trace.log("audio_qa", "verdict",
                   f"scene {scene.id}: {'PASS' if ok else 'FAIL'} {audio.duration:.2f}s, {wps:.2f} w/s, "
                   f"timestamps={audio.boundary_source} coverage={coverage:.0%}, "
-                  f"offset {ts_off * 1000:+.0f} ms (MAD {jitter * 1000:.0f} ms over {len(anchors)} pause anchors)"
+                  + f"offset {ts_off * 1000:+.0f} ms (MAD {jitter * 1000:.0f} ms over {len(anchors)} pause anchors)"
                   + (f", ASR sim={audio.asr_similarity:.2f}" if audio.asr_similarity is not None else "")
                   + (f" — {'; '.join(problems)}" if problems else ""),
                   scene=scene.id, ok=ok, asr=audio.asr_similarity)
@@ -183,12 +192,138 @@ def narrate_scene(ctx: Ctx, scene: SceneScript, rate: str = "+0%", cached: Scene
     return best.audio
 
 
+# ------------------------------------------------------------------ ElevenLabs
+SCENE_BREAK = "\n\n"   # paragraph break between scenes → a natural, slightly longer pause
+
+
+def _elevenlabs(ctx: Ctx, text: str, voice: str, model: str, speed: float) -> tuple[bytes, dict]:
+    body = {"text": text, "model_id": model, "language_code": ctx.brief.lang.code,
+            "voice_settings": {"speed": round(min(max(speed, 0.7), 1.2), 2)}}
+    delay = 3.0
+    for attempt in range(1, 5):
+        try:
+            r = httpx.post(f"https://api.elevenlabs.io/v1/text-to-speech/{voice}/with-timestamps",
+                           params={"output_format": "mp3_44100_128"}, json=body, timeout=240,
+                           headers={"xi-api-key": ctx.settings.elevenlabs_key})
+            if r.status_code in (429, 500, 502, 503, 504):
+                raise LLMError(f"ElevenLabs HTTP {r.status_code}")
+            if r.status_code >= 400:
+                raise LLMError(f"ElevenLabs HTTP {r.status_code}: {r.text[:200]}")
+            j = r.json()
+            return base64.b64decode(j["audio_base64"]), j["alignment"]
+        except (httpx.TransportError, httpx.TimeoutException, LLMError) as e:
+            if attempt == 4 or (isinstance(e, LLMError) and "HTTP 4" in str(e) and "429" not in str(e)):
+                raise LLMError(str(e)) from e
+            ctx.trace.log("narrator", "retry", f"ElevenLabs: {e}; retrying in {delay:.0f}s")
+            time.sleep(delay)
+            delay *= 2
+    raise AssertionError("unreachable")
+
+
+def slice_lesson(alignment: dict, scene_texts: list[str], total: float) -> tuple[list[tuple[float, float]], list[list[Word]]]:
+    """Split a whole-lesson take into scenes.
+
+    Returns, per scene, the (start, end) of its audio slice (cut in the middle of the pause
+    between scenes) and its word timings relative to that slice. Words are rebuilt from the
+    character alignment by splitting on whitespace, so they line up 1:1 with `text.split()`.
+    """
+    chars = alignment["characters"]
+    starts = alignment["character_start_times_seconds"]
+    ends = alignment["character_end_times_seconds"]
+    words: list[tuple[str, float, float]] = []
+    cur, cs, ce = "", 0.0, 0.0
+    for ch, st, en in zip(chars, starts, ends):
+        if ch.isspace():
+            if cur:
+                words.append((cur, cs, ce))
+            cur = ""
+            continue
+        if not cur:
+            cs = st
+        cur += ch
+        ce = en
+    if cur:
+        words.append((cur, cs, ce))
+    counts = [len(t.split()) for t in scene_texts]
+    if sum(counts) != len(words):
+        raise ValueError(f"alignment has {len(words)} words, script has {sum(counts)}")
+    groups, i = [], 0
+    for n in counts:
+        groups.append(words[i:i + n])
+        i += n
+    cuts = [0.0] + [round((g[-1][2] + h[0][1]) / 2, 3) for g, h in zip(groups, groups[1:])] + [total]
+    spans = list(zip(cuts, cuts[1:]))
+    rel = [[Word(text=t, start=round(s0 - a, 3), end=round(e0 - a, 3)) for t, s0, e0 in g] for g, (a, _) in zip(groups, spans)]
+    return spans, rel
+
+
+def _speed(ctx: Ctx, rate: str) -> float:
+    m = re.fullmatch(r"([+-]\d+)%", rate)
+    return ctx.settings.el_speed * (1 + int(m.group(1)) / 100) if m else ctx.settings.el_speed
+
+
+def narrate_lesson(ctx: Ctx, scenes: list[SceneScript], rate: str, cache: dict[int, SceneAudio]) -> dict[int, SceneAudio]:
+    lang, s = ctx.brief.lang, ctx.settings
+    full = SCENE_BREAK.join(sc.narration for sc in scenes)
+    speed = _speed(ctx, rate)
+    lesson_hash = text_hash(full, lang.el_voice, s.el_model, f"{speed:.3f}")
+    if cache and all(sc.id in cache and cache[sc.id].engine == "elevenlabs" and cache[sc.id].narration_hash == lesson_hash
+                     and (ctx.run_dir / cache[sc.id].path).exists() for sc in scenes):
+        ctx.trace.log("narrator", "cache", "lesson narration unchanged, reusing the ElevenLabs take")
+        return {sc.id: cache[sc.id] for sc in scenes}
+
+    audio_dir = ctx.run_dir / "audio"
+    audio_dir.mkdir(exist_ok=True)
+    best: tuple[float, dict[int, SceneAudio], bool] | None = None
+    for attempt in range(1, s.max_tts_attempts + 1):
+        voice, model = (lang.el_voice, s.el_model) if attempt < 3 else (lang.el_alt_voice or lang.el_voice, s.el_alt_model)
+        ctx.trace.log("narrator", "tts", f"whole lesson take {attempt}: ElevenLabs {model} voice {voice} speed {speed:.2f} "
+                      f"({len(full)} chars, {len(scenes)} scenes in one take)")
+        data, alignment = _elevenlabs(ctx, full, voice, model, speed)
+        take_path = audio_dir / f"lesson_take{attempt}.mp3"
+        take_path.write_bytes(data)
+        samples = decode(take_path)
+        total = len(samples) / SR
+        spans, rel_words = slice_lesson(alignment, [sc.narration for sc in scenes], total)
+        audios: dict[int, SceneAudio] = {}
+        for sc, (a, b), boundaries in zip(scenes, spans, rel_words):
+            path = audio_dir / f"scene_{sc.id}_el{attempt}.wav"
+            write_wav(path, samples[int(a * SR):int(b * SR)])
+            words, coverage = align_words(sc.narration, boundaries)
+            audios[sc.id] = SceneAudio(scene_id=sc.id, path=str(path.relative_to(ctx.run_dir)), duration=round(b - a, 3),
+                                       words=words, voice=f"elevenlabs:{voice}:{model}", rate=rate,
+                                       narration_hash=lesson_hash, coverage=round(coverage, 3), engine="elevenlabs")
+        ctx.trace.log("narrator", "slice", f"take {attempt}: {total:.2f}s cut into scenes at the natural pauses → "
+                      + ", ".join(f"s{k}:{v.duration:.1f}s" for k, v in audios.items()))
+        with ThreadPoolExecutor(max_workers=s.max_workers) as pool:
+            takes = list(pool.map(lambda sc, au=audios: _qa(ctx, sc, au[sc.id]), scenes))
+        ok = all(t.ok for t in takes)
+        worst = min((t.audio.asr_similarity or 1.0) for t in takes)
+        if best is None or (ok and not best[2]) or (ok == best[2] and worst > best[0]):
+            best = (worst, audios, ok)
+        if ok:
+            break
+        ctx.trace.log("audio_qa", "retake", f"take {attempt} failed in scene(s) "
+                      f"{[t.audio.scene_id for t in takes if not t.ok]}; re-recording the whole lesson for continuity")
+    assert best is not None
+    if not best[2]:
+        ctx.trace.log("audio_qa", "accept", f"no take passed every scene; keeping the best (worst-scene ASR {best[0]:.2f})")
+    return best[1]
+
+
 def narrate_all(ctx: Ctx, scenes: list[SceneScript], rate: str = "+0%",
                 cache: dict[int, SceneAudio] | None = None) -> dict[int, SceneAudio]:
     cache = cache or {}
-    with ThreadPoolExecutor(max_workers=ctx.settings.max_workers) as pool:
-        results = list(pool.map(lambda sc: narrate_scene(ctx, sc, rate, cache.get(sc.id)), scenes))
-    out = {a.scene_id: a for a in results}
+    out: dict[int, SceneAudio] | None = None
+    if ctx.settings.use_elevenlabs(ctx.brief.lang):
+        try:
+            out = narrate_lesson(ctx, scenes, rate, cache)
+        except (LLMError, ValueError, KeyError) as e:
+            ctx.trace.log("narrator", "fallback", f"ElevenLabs unavailable ({e}); falling back to edge-tts per scene")
+    if out is None:
+        with ThreadPoolExecutor(max_workers=ctx.settings.max_workers) as pool:
+            results = list(pool.map(lambda sc: narrate_scene(ctx, sc, rate, cache.get(sc.id)), scenes))
+        out = {a.scene_id: a for a in results}
     (ctx.run_dir / "audio" / "audio.json").write_text(
         json.dumps({k: v.model_dump() for k, v in out.items()}, ensure_ascii=False, indent=1))
     return out

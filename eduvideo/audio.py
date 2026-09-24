@@ -46,12 +46,24 @@ def frame_db(samples: np.ndarray, sr: int = SR, win: float = 0.01) -> np.ndarray
     return 20 * np.log10(rms)
 
 
+def voiced_mask(db: np.ndarray, rel_db: float = -35.0) -> np.ndarray:
+    """Speech frames: within `rel_db` of the loudest frame AND clearly (12 dB) above the room tone.
+
+    The room-tone term matters for studio-style TTS (e.g. ElevenLabs) whose pauses are not digital
+    silence; for clean TTS the first condition dominates.
+    """
+    if db.size == 0:
+        return np.zeros(0, bool)
+    floor = float(np.percentile(db, 15))
+    return db > max(db.max() + rel_db, floor + 12)
+
+
 def speech_bounds(samples: np.ndarray, sr: int = SR, rel_db: float = -35.0) -> tuple[float, float]:
-    """First and last time the signal rises within `rel_db` of its loudest 10 ms frame."""
+    """First and last time the signal counts as speech (see voiced_mask)."""
     db = frame_db(samples, sr)
     if db.size == 0:
         return 0.0, 0.0
-    voiced = np.where(db > db.max() + rel_db)[0]
+    voiced = np.where(voiced_mask(db, rel_db))[0]
     if voiced.size == 0:
         return 0.0, len(samples) / sr
     return voiced[0] * 0.01, (voiced[-1] + 1) * 0.01
@@ -71,3 +83,13 @@ def normalise(samples: np.ndarray, sr: int = SR, target_db: float = -19.0, peak_
     if peak > ceiling:
         out *= ceiling / peak
     return out
+
+
+def normalise_group(clips: list[np.ndarray], sr: int = SR) -> list[np.ndarray]:
+    """One gain for clips cut from a single continuous take, so levels don't step at the cuts."""
+    joined = np.concatenate(clips) if clips else np.zeros(0, np.float32)
+    if joined.size == 0:
+        return clips
+    ref = normalise(joined, sr)
+    gain = float(np.abs(ref).max() / max(np.abs(joined).max(), 1e-9)) if np.abs(joined).max() > 0 else 1.0
+    return [c * gain for c in clips]

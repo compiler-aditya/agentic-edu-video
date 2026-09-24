@@ -198,3 +198,26 @@ def test_sketch_reveals_outlines_progressively():
     assert 0 < drawn(half) < drawn(full)
     assert not sk.ink[150, 200]                                          # interior fill is not "ink"
     assert sk.pen_at(0.5) is not None and sk.pen_at(1.0) is None
+
+
+def test_slice_lesson_cuts_between_scenes_and_rebases_word_times():
+    from eduvideo.agents.narrator import SCENE_BREAK, slice_lesson
+    scenes = ["तो चलिए देखते हैं।", "पत्ती ही रसोई है!"]
+    text = SCENE_BREAK.join(scenes)
+    starts, ends, t = [], [], 0.0
+    for ch in text:                      # fake alignment: 0.1 s per character, 0.6 s pause at the break
+        if ch == "\n":
+            t += 0.3
+        starts.append(round(t, 3))
+        t += 0.1
+        ends.append(round(t, 3))
+    spans, words = slice_lesson({"characters": list(text), "character_start_times_seconds": starts,
+                                 "character_end_times_seconds": ends}, scenes, total=t + 0.5)
+    assert [len(w) for w in words] == [4, 4]
+    (a0, b0), (a1, b1) = spans
+    assert a0 == 0.0 and b0 == a1 and b1 == t + 0.5          # contiguous slices, nothing lost
+    last_s1_end = a0 + words[0][-1].end
+    first_s2_start = a1 + words[1][0].start
+    assert last_s1_end < b0 < first_s2_start                  # cut sits inside the pause
+    assert abs((b0 - last_s1_end) - (first_s2_start - b0)) < 1e-6  # …exactly in its middle
+    assert words[1][0].text == "पत्ती" and words[1][0].start > 0      # times rebased to the slice

@@ -63,8 +63,12 @@ class Orchestrator:
         p = self.run_dir / name
         return model.model_validate_json(p.read_text(encoding="utf-8")) if p.exists() else None
 
+    def _gap(self, audios: dict[int, SceneAudio]) -> float:
+        # continuous ElevenLabs takes already contain the pauses between scenes
+        return 0.0 if audios and all(a.engine == "elevenlabs" for a in audios.values()) else self.s.scene_gap
+
     def _total_seconds(self, audios: dict[int, SceneAudio]) -> float:
-        return self.s.lead_in + sum(a.duration for a in audios.values()) + self.s.scene_gap * (len(audios) - 1) + self.s.tail
+        return self.s.lead_in + sum(a.duration for a in audios.values()) + self._gap(audios) * (len(audios) - 1) + self.s.tail
 
     # ---------------------------------------------------------------- stages
     def _script_loop(self, plan: LessonPlan, wps: float) -> Script:
@@ -99,7 +103,7 @@ class Orchestrator:
             if lo <= total <= hi:
                 self.trace.log("orchestrator", "duration", f"round {rnd}: {total:.1f}s is inside {lo:.1f}-{hi:.1f}s ✓")
                 return script, audios, rate
-            fixed = self.s.lead_in + self.s.tail + self.s.scene_gap * (len(audios) - 1)
+            fixed = self.s.lead_in + self.s.tail + self._gap(audios) * (len(audios) - 1)
             speech = sum(a.duration for a in audios.values())
             scale = (self.s.target_seconds - fixed) / speech
             direction = "shorten" if total > hi else "lengthen"
@@ -128,7 +132,7 @@ class Orchestrator:
         # Last resort: nudge the speaking rate (bounded to keep speech natural).
         total = self._total_seconds(audios)
         if not lo <= total <= hi:
-            fixed = self.s.lead_in + self.s.tail + self.s.scene_gap * (len(audios) - 1)
+            fixed = self.s.lead_in + self.s.tail + self._gap(audios) * (len(audios) - 1)
             speech = total - fixed
             pct = max(-15, min(15, round((speech / (self.s.target_seconds - fixed) - 1) * 100)))
             rate = f"{pct:+d}%"
@@ -163,6 +167,9 @@ class Orchestrator:
         self.trace.log("orchestrator", "start", b.describe(), run_dir=str(self.run_dir))
         self.trace.log("orchestrator", "models", f"preset '{self.s.models}': "
                        + ", ".join(f"{k}={v}" for k, v in self.s.model_table().items()), models=self.s.model_table())
+        tts = (f"ElevenLabs {self.s.el_model} voice {b.lang.el_voice} (whole-lesson take)" if self.s.use_elevenlabs(b.lang)
+               else f"edge-tts {b.lang.voice}")
+        self.trace.log("orchestrator", "tts", f"narration engine: {tts}")
 
         plan = self._load("plan.json", LessonPlan)
         if plan:
@@ -171,7 +178,7 @@ class Orchestrator:
             plan = plan_lesson(ctx)
             self._save("plan.json", plan)
 
-        wps = b.lang.words_per_sec
+        wps = self.s.speaking_rate(b.lang)
         script = self._load("script.json", Script)
         if script:
             self.trace.log("orchestrator", "resume", "loaded approved script.json")

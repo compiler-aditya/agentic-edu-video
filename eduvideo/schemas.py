@@ -155,6 +155,7 @@ class SceneAudio(BaseModel):
     coverage: float = 1.0      # share of narration tokens matched to a TTS word timestamp
     ts_offset: float | None = None  # measured lag of audible speech behind the TTS timestamps (s)
     boundary_source: Literal["tts", "estimated"] = "tts"
+    engine: Literal["edge", "elevenlabs", "openrouter"] = "edge"  # elevenlabs clips are slices of one continuous take
 
 
 class Caption(BaseModel):

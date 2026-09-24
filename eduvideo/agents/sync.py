@@ -15,7 +15,7 @@ import math
 
 import numpy as np
 
-from ..audio import SR, decode, frame_db, normalise, write_wav
+from ..audio import SR, decode, frame_db, normalise, normalise_group, voiced_mask, write_wav
 from ..schemas import AnimEvent, Caption, SceneAudio, SceneBoard, SceneSlot, Script, Storyboard, Timeline, Word
 from ..textutil import norm_token
 from .base import Ctx
@@ -116,8 +116,7 @@ def estimate_ts_offset(samples: np.ndarray, words: list[Word], sr: int = SR) -> 
     """
     if not words:
         return 0.0, []
-    db = frame_db(samples, sr)
-    voiced = db > db.max() - 35
+    voiced = voiced_mask(frame_db(samples, sr))
     anchors, silent = [], 15  # (speech resumes at, silence began at); the clip start counts as a pause
     for i, v in enumerate(voiced):
         if v and silent >= 15:  # >=150 ms: real pauses, not stop-consonant closures
@@ -226,7 +225,7 @@ def schedule_scene(ctx: Ctx, slot: SceneSlot, board: SceneBoard, words: list[Wor
     """Turn storyboard cues into absolute times and lay out the pen's work for one scene."""
     sid = slot.scene_id
     ev: list[AnimEvent] = []
-    t0 = slot.start - 0.15
+    t0 = max(slot.start - 0.15, slot.vis_start + 0.25)  # after the slide-in has settled
     title_end = t0 + _write_time(slot.title, TITLE_CPS)
     ev.append(AnimEvent(scene_id=sid, kind="title", start=round(t0, 3), end=round(title_end, 3)))
 
@@ -286,11 +285,15 @@ def build_timeline(ctx: Ctx, script: Script, storyboard: Storyboard, audios: dic
     scene_words: dict[int, list[Word]] = {}
     clips: list[tuple[int, np.ndarray]] = []
 
+    # ElevenLabs clips are slices of one continuous take that already contain the natural pauses:
+    # lay them back to back with one shared gain; per-scene TTS clips get a fixed gap and own gain.
+    continuous = all(audios[sc.id].engine == "elevenlabs" for sc in script.scenes)
+    gap = 0.0 if continuous else s.scene_gap
+    raws = [decode(ctx.run_dir / audios[sc.id].path) for sc in script.scenes]
+    normed = normalise_group(raws) if continuous else [normalise(r) for r in raws]
     cursor = s.lead_in
-    for sc, board in zip(script.scenes, storyboard.scenes):
+    for sc, board, raw, samples in zip(script.scenes, storyboard.scenes, raws, normed):
         au = audios[sc.id]
-        raw = decode(ctx.run_dir / au.path)
-        samples = normalise(raw)
         start = round(round(cursor * SR) / SR, 4)
         end = start + len(samples) / SR
         clips.append((int(round(start * SR)), samples))
@@ -303,7 +306,7 @@ def build_timeline(ctx: Ctx, script: Script, storyboard: Storyboard, audios: dic
             captions.append(Caption(start=chunk[0].start, end=chunk[-1].end, words=chunk, scene_id=sc.id))
         tl_scenes.append(SceneSlot(scene_id=sc.id, title=sc.title, layout=board.layout, image=images[sc.id],
                                    start=start, end=end, vis_start=0.0, vis_end=0.0))
-        cursor = end + s.scene_gap
+        cursor = end + gap
 
     total = tl_scenes[-1].end + s.tail
     n_frames = int(np.ceil(total * s.fps))

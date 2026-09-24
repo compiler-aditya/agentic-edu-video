@@ -51,7 +51,7 @@ def write_report(run_dir: Path, brief: Brief, plan: LessonPlan, script: Script, 
     if models:
         L += ["## Models", "", "| Role | Model |", "|---|---|",
               *[f"| {role} | `{m}` |" for role, m in models.items()],
-              f"| narration (TTS) | `{brief.lang.voice}` (edge-tts) |", ""]
+              f"| narration (TTS) | `{next(iter(audios.values())).voice}` |", ""]
 
     L += ["## Lesson plan (Planner agent)", "", "**Objectives:**", *[f"- {o}" for o in plan.learning_objectives], "",
           f"**Visual style:** {plan.visual_style}", ""]

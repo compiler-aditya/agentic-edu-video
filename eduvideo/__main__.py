@@ -31,7 +31,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--subject")
     ap.add_argument("--topic")
     ap.add_argument("--lang", default="hi", choices=sorted(LANGUAGES), help="narration language (default: hi)")
-    ap.add_argument("--seconds", type=float, default=45, help="target length, 30-60 (default 45)")
+    ap.add_argument("--seconds", type=float, default=50, help="target length, 30-60 (default 50)")
+    ap.add_argument("--tts", choices=["auto", "elevenlabs", "edge"], default=None,
+                    help="narration engine (default auto: ElevenLabs if ELEVENLABS_API_KEY is set, else edge-tts)")
     ap.add_argument("--out", default="output", help="output root directory")
     ap.add_argument("--resume", help="resume an existing run directory (reuses plan/script/images/audio)")
     ap.add_argument("--models", choices=["best", "fast"], default=None,
@@ -53,6 +55,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.models:
         settings.use_models(args.models)
     settings.target_seconds = args.seconds
+    if args.tts:
+        settings.tts = args.tts
     settings.generate_images = not args.no_images
     settings.asr_check = not args.no_asr_check
     brief = Brief(grade=grade, subject=subject, topic=topic, lang=LANGUAGES[args.lang])
