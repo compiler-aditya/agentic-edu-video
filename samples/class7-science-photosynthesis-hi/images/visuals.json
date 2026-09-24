@@ -3,76 +3,62 @@
   "source": "cached",
   "score": 10,
   "approved": true,
-  "key": "c4f0d26911e8",
+  "key": "a60244f9948e",
   "grounding": {
    "child": {
     "id": "child",
     "found": true,
     "box_2d": [
-     203,
-     140,
-     935,
-     396
+     311,
+     163,
+     781,
+     458
     ],
     "point": [
-     570,
-     268
+     546,
+     330
     ]
    },
-   "roti": {
-    "id": "roti",
+   "plate": {
+    "id": "plate",
     "found": true,
     "box_2d": [
-     425,
-     234,
-     551,
-     328
+     762,
+     216,
+     878,
+     456
     ],
     "point": [
-     488,
-     281
+     820,
+     336
     ]
    },
    "plant": {
     "id": "plant",
     "found": true,
     "box_2d": [
-     332,
-     580,
-     562,
-     751
+     345,
+     528,
+     707,
+     763
     ],
     "point": [
-     466,
-     666
+     526,
+     645
     ]
    },
-   "thought_bubble": {
-    "id": "thought_bubble",
+   "sun": {
+    "id": "sun",
     "found": true,
     "box_2d": [
-     55,
-     627,
-     330,
-     893
+     139,
+     695,
+     454,
+     936
     ],
     "point": [
-     192,
-     760
-    ]
-   },
-   "sun_window": {
-    "id": "sun_window",
-    "found": true,
-    "box_2d": [
-     148,
-     459,
-     343,
-     609
-    ],
-    "point": [
-     245,
-     534
+     296,
+     815
     ]
    }
   },
@@ -80,10 +66,10 @@
    {
     "attempt": 1,
     "image": "scene_1_try1.png",
-    "score": 5,
+    "score": 6,
     "approved": false,
     "problems": [
-     "The child is holding and eating a large chocolate chip cookie instead of a round golden-brown roti, which contradicts the specific Hindi narration."
+     "The sun is drawn overlapping the window frame (the vertical and horizontal bars), making it look like it is inside the room or pasted on top of the window rather than being outside in the sky."
     ]
    },
    {
@@ -99,69 +85,83 @@
   "source": "cached",
   "score": 10,
   "approved": true,
-  "key": "47e02e3429e2",
+  "key": "eae0f340da16",
   "grounding": {
+   "roots": {
+    "id": "roots",
+    "found": true,
+    "box_2d": [
+     823,
+     286,
+     919,
+     713
+    ],
+    "point": [
+     871,
+     500
+    ]
+   },
+   "stem": {
+    "id": "stem",
+    "found": true,
+    "box_2d": [
+     25,
+     466,
+     823,
+     531
+    ],
+    "point": [
+     424,
+     498
+    ]
+   },
    "leaf": {
     "id": "leaf",
     "found": true,
     "box_2d": [
-     93,
-     47,
-     907,
-     410
+     138,
+     140,
+     531,
+     480
     ],
     "point": [
-     480,
-     147
+     310,
+     309
     ]
    },
-   "magnified_inset": {
-    "id": "magnified_inset",
+   "stomata_inset": {
+    "id": "stomata_inset",
     "found": true,
     "box_2d": [
-     179,
-     485,
-     852,
-     958
+     293,
+     593,
+     773,
+     959
     ],
     "point": [
-     515,
-     721
+     533,
+     776
     ]
    },
-   "chlorophyll_cells": {
-    "id": "chlorophyll_cells",
+   "co2": {
+    "id": "co2",
     "found": true,
     "box_2d": [
-     181,
-     488,
-     638,
-     956
+     282,
+     41,
+     539,
+     286
     ],
     "point": [
-     410,
-     722
-    ]
-   },
-   "stoma": {
-    "id": "stoma",
-    "found": true,
-    "box_2d": [
-     629,
-     666,
-     807,
-     786
-    ],
-    "point": [
-     718,
-     726
+     382,
+     223
     ]
    }
   },
   "attempts": [
    {
     "attempt": 1,
-    "image": "scene_2_fix1.png",
+    "image": "scene_2_try1.png",
     "score": 10,
     "approved": true,
     "problems": []
@@ -172,90 +172,62 @@
   "source": "cached",
   "score": 10,
   "approved": true,
-  "key": "e6cfa8dffab8",
+  "key": "73afc3150b1a",
   "grounding": {
    "sun": {
     "id": "sun",
     "found": true,
     "box_2d": [
-     0,
-     25,
-     493,
-     382
+     58,
+     41,
+     348,
+     270
     ],
     "point": [
-     131,
-     125
+     203,
+     155
+    ]
+   },
+   "sun_rays": {
+    "id": "sun_rays",
+    "found": true,
+    "box_2d": [
+     258,
+     187,
+     654,
+     471
+    ],
+    "point": [
+     456,
+     321
     ]
    },
    "leaf": {
     "id": "leaf",
     "found": true,
     "box_2d": [
-     117,
-     286,
-     551,
-     792
+     409,
+     275,
+     946,
+     576
     ],
     "point": [
-     257,
-     640
+     677,
+     425
     ]
    },
-   "stem": {
-    "id": "stem",
+   "chloroplast_inset": {
+    "id": "chloroplast_inset",
     "found": true,
     "box_2d": [
-     304,
-     495,
-     704,
-     572
+     160,
+     604,
+     634,
+     962
     ],
     "point": [
-     600,
-     539
-    ]
-   },
-   "roots": {
-    "id": "roots",
-    "found": true,
-    "box_2d": [
-     691,
-     298,
-     962,
-     756
-    ],
-    "point": [
-     826,
-     527
-    ]
-   },
-   "water_arrows": {
-    "id": "water_arrows",
-    "found": true,
-    "box_2d": [
-     276,
-     432,
-     821,
-     629
-    ],
-    "point": [
-     548,
-     526
-    ]
-   },
-   "co2_arrows": {
-    "id": "co2_arrows",
-    "found": true,
-    "box_2d": [
-     217,
-     643,
-     552,
-     934
-    ],
-    "point": [
-     384,
-     838
+     383,
+     783
     ]
    }
   },
@@ -273,62 +245,62 @@
   "source": "cached",
   "score": 10,
   "approved": true,
-  "key": "a77c3119a189",
+  "key": "902a05eb55ea",
   "grounding": {
    "leaf": {
     "id": "leaf",
     "found": true,
     "box_2d": [
-     259,
-     42,
-     728,
-     314
+     211,
+     317,
+     545,
+     667
     ],
     "point": [
-     333,
-     260
+     450,
+     410
     ]
    },
-   "glucose_symbol": {
-    "id": "glucose_symbol",
+   "food": {
+    "id": "food",
     "found": true,
     "box_2d": [
-     436,
-     124,
-     561,
-     208
+     282,
+     449,
+     427,
+     555
     ],
     "point": [
-     498,
-     166
+     354,
+     502
     ]
    },
-   "oxygen_arrows": {
-    "id": "oxygen_arrows",
+   "roots": {
+    "id": "roots",
     "found": true,
     "box_2d": [
-     363,
-     303,
-     689,
-     662
+     307,
+     198,
+     913,
+     688
     ],
     "point": [
-     526,
-     482
+     750,
+     350
     ]
    },
-   "person": {
-    "id": "person",
+   "oxygen": {
+    "id": "oxygen",
     "found": true,
     "box_2d": [
-     224,
-     757,
-     774,
-     958
+     49,
+     400,
+     258,
+     567
     ],
     "point": [
-     499,
-     857
+     171,
+     461
     ]
    }
   },
@@ -336,6 +308,15 @@
    {
     "attempt": 1,
     "image": "scene_4_try1.png",
+    "score": 6,
+    "approved": false,
+    "problems": [
+     "The sugar cube symbols contain a garbled letter 'E' on them, violating the text-free requirement."
+    ]
+   },
+   {
+    "attempt": 2,
+    "image": "scene_4_try2.png",
     "score": 10,
     "approved": true,
     "problems": []
@@ -346,34 +327,34 @@
   "source": "cached",
   "score": 10,
   "approved": true,
-  "key": "05905894aa8d",
+  "key": "380b5e91bedd",
   "grounding": {
-   "sun": {
-    "id": "sun",
-    "found": true,
-    "box_2d": [
-     95,
-     277,
-     528,
-     604
-    ],
-    "point": [
-     311,
-     440
-    ]
-   },
    "leaf": {
     "id": "leaf",
     "found": true,
     "box_2d": [
-     534,
-     441,
-     909,
-     723
+     98,
+     48,
+     902,
+     413
     ],
     "point": [
-     721,
-     582
+     500,
+     230
+    ]
+   },
+   "food": {
+    "id": "food",
+    "found": true,
+    "box_2d": [
+     178,
+     561,
+     861,
+     954
+    ],
+    "point": [
+     566,
+     757
     ]
    }
   },
