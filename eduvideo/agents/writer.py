@@ -12,10 +12,10 @@ import json
 from ..schemas import LessonPlan, ReviewIssue, Script
 from .base import Ctx
 
-SYSTEM = """You are a warm, clear science/maths/social-science narrator for Indian school children.
-You write narration that sounds natural when read aloud by a text-to-speech voice:
-short sentences, everyday examples from Indian life, no bullet points, no markdown,
-no emojis, no brackets or abbreviations the voice would stumble on."""
+SYSTEM = """You are a warm, lively Indian school teacher explaining a topic to one curious student, and
+your words will be spoken by an expressive voice. It must sound like a real conversation, not a
+textbook being read out: everyday spoken language, examples from Indian life, no bullet points,
+markdown, emojis, brackets or abbreviations the voice would stumble on."""
 
 
 def _rules(ctx: Ctx) -> str:
@@ -25,7 +25,13 @@ def _rules(ctx: Ctx) -> str:
   way Indian teachers say them, transliterated into {lang.script} (e.g. क्लोरोफिल, ग्लूकोज़) — never
   Latin letters, chemical formulas, digits-with-units or symbols in the narration.
 - Grade level: Class {ctx.brief.grade}. Accurate, NCERT-consistent facts only.
-- Each scene continues the previous one (no repeated greetings, no "in this video").
+- CONVERSATIONAL, NOT SENTENCE-BY-SENTENCE: talk to the student (आप / हम / चलिए), ask a question now
+  and then and answer it, and join sentences with connecting words (तो, अब, देखिए, यानी, इसलिए, पर,
+  क्योंकि) so each thought leads into the next. Vary sentence length; avoid a string of short
+  statements that each stand alone, and avoid reading out definitions or lists.
+- Each scene picks up from the previous one with a natural bridge (e.g. "अब सवाल यह है कि…" /
+  "तो पत्ती यह करती कैसे है?") — no repeated greetings, no "in this video".
+- Use plain punctuation only (, ? ! ।) — no ellipsis "…" or "...", it creates long awkward pauses.
 - The video is a whiteboard explainer: while the narrator talks, the scene's drawing is sketched
   and its parts are labelled as they are mentioned. So name the concrete parts/things the student
   should look at (e.g. पत्ती, जड़ें, सूरज) in the order you want them pointed out.

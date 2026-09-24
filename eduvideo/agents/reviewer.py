@@ -38,6 +38,10 @@ def deterministic_checks(ctx: Ctx, plan: LessonPlan, script: Script, wps: float,
             issues.append(ReviewIssue(scene_id=sc.id, severity="major", category="language",
                                       problem=f"narration is only {ratio:.0%} {lang.script} script",
                                       fix=f"write the narration entirely in {lang.script} script"))
+        if "…" in sc.narration or "..." in sc.narration:
+            issues.append(ReviewIssue(scene_id=sc.id, severity="major", category="language",
+                                      problem="narration uses an ellipsis, which the voice turns into a long pause",
+                                      fix="use a comma or full stop instead"))
         if lang.script != "Latin" and _TTS_UNSAFE.search(sc.narration):
             bad = sorted(set(_TTS_UNSAFE.findall(sc.narration)))
             issues.append(ReviewIssue(scene_id=sc.id, severity="major", category="language",
@@ -75,7 +79,9 @@ Script (JSON):
 Check each scene for:
 1. factual/scientific errors or misleading simplifications (critical if wrong),
 2. suitability for Class {ctx.brief.grade} (vocabulary, concept level),
-3. natural, grammatical {ctx.brief.lang.name} that a TTS voice can read smoothly,
+3. natural, grammatical, CONVERSATIONAL {ctx.brief.lang.name}: it should sound like a teacher talking with
+   a student (questions, connecting words, scenes that lead into each other), not a list of
+   disconnected textbook sentences — flag that as major,
 4. flow between scenes and whether the objectives are covered.
 {prev_block}
 Set approved=true only if there are no major or critical issues. Score 1-10."""
