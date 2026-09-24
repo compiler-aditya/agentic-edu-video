@@ -24,7 +24,7 @@ def _event_str(e, board) -> str:
 def write_report(run_dir: Path, brief: Brief, plan: LessonPlan, script: Script, sb: Storyboard,
                  audios: dict[int, SceneAudio],
                  tl: Timeline, qa: QAResult, history: dict, trace: Trace, rate: str,
-                 models: dict[str, str] | None = None) -> None:
+                 models: dict[str, str] | None = None, music=None) -> None:
     visuals = {}
     vj = run_dir / "images" / "visuals.json"
     if vj.exists():
@@ -85,6 +85,16 @@ def write_report(run_dir: Path, brief: Brief, plan: LessonPlan, script: Script, 
               + (", ".join(f"#{a.get('attempt')} score {a.get('score', 'err')}{' ✅' if a.get('approved') else ''}"
                            for a in v.get("attempts", [])) or "cached"),
               ""]
+
+    if music is not None and (music.attempts or music.path):
+        L += ["## Background music (Music agent)", "",
+              f"- **Prompt:** {music.prompt or '—'}",
+              "- **Takes:** " + (", ".join(f"#{a.get('attempt')} " + (f"score {a['score']}/10{' ✅' if a.get('approved') else ' ❌'}"
+                                                                      if 'score' in a else "error")
+                                          for a in music.attempts) or "cached"),
+              "- **Mix:** " + (f"bed {music.level_db:.0f} dB, ducked under every spoken word; narration ASR on the final "
+                                f"mix {music.clarity.get('asr_similarity')}, balance {music.clarity.get('balance')}/10"
+                                if music.path else "dropped — narration only"), ""]
 
     if qa.review:
         L += ["## Final QA (vision check of rendered keyframes)", "", "| Scene | Visual matches | Captions legible | Glitch | Notes |", "|---|---|---|---|---|"]

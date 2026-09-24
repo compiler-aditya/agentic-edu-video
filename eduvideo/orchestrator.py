@@ -14,6 +14,8 @@
                        ▼
                      SYNC  (calibrated word timestamps → captions + cue-timed pen actions)
                        ▼
+                     MUSIC ⟲ listen check → duck under every word → clarity (ASR on the mix)
+                       ▼
                  WHITEBOARD RENDER
                        ▼
                    FINAL QA ──(drawing wrong)──► VISUALS (redraw) ─┐
@@ -29,6 +31,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from .agents.base import Brief, Ctx
+from .agents.music import MusicResult, add_music
 from .agents.narrator import narrate_all
 from .agents.planner import plan_lesson
 from .agents.qa import QAResult, final_qa
@@ -140,6 +143,14 @@ class Orchestrator:
             audios = narrate_all(self.ctx, script.scenes, rate, cache=audios)
         return script, audios, rate
 
+    def _soundtrack(self, script: Script, tl: Timeline) -> None:
+        """Mix the background music under the narration (updates tl.audio_path)."""
+        self.music = MusicResult(None)
+        if not (self.s.music and self.s.elevenlabs_key):
+            return
+        self.music = add_music(self.ctx, script, tl)
+        (self.run_dir / "timeline.json").write_text(tl.model_dump_json(indent=1))
+
     def _keyframe_times(self, tl: Timeline) -> dict[int, float]:
         """One frame per scene after all of its animations have finished (everything visible)."""
         times = {}
@@ -216,6 +227,7 @@ class Orchestrator:
         has_image = {k: v.source != "fallback" for k, v in visuals.items()}
 
         tl = build_timeline(ctx, script, sb, audios, images, has_image)
+        self._soundtrack(script, tl)
         video, keyframes = self._render(tl, plan, sb, visuals)
 
         qa: QAResult = final_qa(ctx, video, tl, script, sb, keyframes)
@@ -238,6 +250,7 @@ class Orchestrator:
                     self.trace.log("grounder", "error", f"scene {sid}: {e}")
             has_image = {k: v.source != "fallback" for k, v in visuals.items()}
             tl = build_timeline(ctx, script, sb, audios, images, has_image)
+            self._soundtrack(script, tl)
             video, keyframes = self._render(tl, plan, sb, visuals)
             qa = final_qa(ctx, video, tl, script, sb, keyframes)
 
@@ -245,7 +258,7 @@ class Orchestrator:
             self.trace.log("orchestrator", "warn", "final QA not fully satisfied: "
                            + "; ".join(qa.problems + [f"visual {i}" for i in qa.redo_visuals]))
         write_report(self.run_dir, b, plan, script, sb, audios, tl, qa, self.history, self.trace, rate,
-                     self.s.model_table())
+                     self.s.model_table(), self.music)
         latest = self.run_dir.parent / "latest.mp4"
         shutil.copyfile(video, latest)
         self.trace.log("orchestrator", "done", f"{video} ({qa.video_s:.1f}s) — {self.trace.llm_calls} API calls, "

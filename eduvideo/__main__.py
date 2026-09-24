@@ -40,6 +40,7 @@ def main(argv: list[str] | None = None) -> int:
                     help="model preset: best (default, highest quality) or fast (~3x cheaper)")
     ap.add_argument("--no-images", action="store_true", help="skip image generation; render typographic slides")
     ap.add_argument("--no-asr-check", action="store_true", help="skip the ASR round-trip audio check")
+    ap.add_argument("--no-music", action="store_true", help="no background music")
     args = ap.parse_args(argv)
 
     if args.input:
@@ -59,6 +60,8 @@ def main(argv: list[str] | None = None) -> int:
         settings.tts = args.tts
     settings.generate_images = not args.no_images
     settings.asr_check = not args.no_asr_check
+    if args.no_music:
+        settings.music = False
     brief = Brief(grade=grade, subject=subject, topic=topic, lang=LANGUAGES[args.lang])
 
     if args.resume:

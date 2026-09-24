@@ -221,3 +221,28 @@ def test_slice_lesson_cuts_between_scenes_and_rebases_word_times():
     assert last_s1_end < b0 < first_s2_start                  # cut sits inside the pause
     assert abs((b0 - last_s1_end) - (first_s2_start - b0)) < 1e-6  # …exactly in its middle
     assert words[1][0].text == "पत्ती" and words[1][0].start > 0      # times rebased to the slice
+
+
+def test_music_ducks_under_speech_and_fades():
+    from eduvideo.agents.music import BED_DB, DUCK_DB, duck_envelope
+    sr = 1000
+    total = 10.0
+    env = duck_envelope(int(total * sr), [(3.0, 5.0)], total, sr=sr)
+    db = lambda t: 20 * np.log10(env[int(t * sr)])
+    assert env[0] == 0.0                                    # fades in from silence
+    assert abs(db(2.0) - BED_DB) < 0.5                      # full bed level in the pause before speech
+    assert db(4.5) < BED_DB - DUCK_DB + 1                   # ducked while the word is spoken
+    assert db(7.5) > db(4.5) + 10                           # recovers after the speech
+    assert env[-1] < env[int(7.0 * sr)]                     # fades out at the end
+
+
+def test_music_jump_check_ignores_fade_in_but_catches_hits():
+    from eduvideo.agents.music import _jumps_db
+    sr = 48000
+    t = np.arange(int(sr * 12)) / sr
+    calm = 0.1 * np.sin(2 * np.pi * 220 * t).astype(np.float32)
+    calm[: sr // 4] = 0.0                                   # track starts from silence
+    assert _jumps_db(calm) < 3
+    hit = calm.copy()
+    hit[int(6 * sr): int(6.5 * sr)] *= 8                    # a sudden +18 dB hit mid-track
+    assert _jumps_db(hit) > 10

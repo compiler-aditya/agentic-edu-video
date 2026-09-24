@@ -155,6 +155,8 @@ class Settings:
     el_model: str = field(default_factory=lambda: _env("EDUVIDEO_EL_MODEL", "eleven_v3"))
     el_alt_model: str = "eleven_multilingual_v2"
     el_speed: float = field(default_factory=lambda: float(_env("EDUVIDEO_EL_SPEED", "1.15")))
+    # Background music (ElevenLabs Music), ducked under the narration; needs ELEVENLABS_API_KEY.
+    music: bool = field(default_factory=lambda: _env("EDUVIDEO_MUSIC", "1") not in ("0", "false", "no"))
 
     # Video contract
     min_seconds: float = 30.0
