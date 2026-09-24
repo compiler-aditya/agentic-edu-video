@@ -262,12 +262,16 @@ class Whiteboard:
                     attach = (box[2] + 22, y + timg.height / 2)
                 sc.labels[i] = _Label(timg, (int(x), int(y)), attach, pt, col)
 
-        # arrows last, so their text tags can avoid everything already placed
+        # arrows last, so their text tags can avoid everything already placed — and the drawing itself
+        content = None
+        if sketch is not None:
+            ink = sketch.color.min(axis=2) < 232
+            content = np.asarray(Image.fromarray((ink * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(9))) > 0
         occupied = [(sc.title_pos[0] - 10, 0, sc.title_pos[0] + title.width + 10, sc.title_pos[1] + title.height + 12)]
         occupied += [(lb.pos[0] - 10, lb.pos[1] - 6, lb.pos[0] + lb.text_img.width + 10, lb.pos[1] + lb.text_img.height + 6)
                      for lb in sc.labels.values()]
         for i, start, end, col, text in arrow_specs:
-            sc.arrows[i] = self._arrow_geom(start, end, col, text, i, occupied)
+            sc.arrows[i] = self._arrow_geom(start, end, col, text, i, occupied, content, box)
 
         line_font_sizes = (36, 32, 28)
         for i, ln in enumerate(bd.board_lines):
@@ -278,7 +282,8 @@ class Whiteboard:
             sc.lines[i] = (r.render(ln.text, INK), (LINES_X, LINES_Y + i * 84))
         return sc
 
-    def _arrow_geom(self, start, end, col, text: str, i: int, occupied: list[tuple[float, float, float, float]]) -> _Arrow:
+    def _arrow_geom(self, start, end, col, text: str, i: int, occupied: list[tuple[float, float, float, float]],
+                    content: np.ndarray | None = None, box: tuple[int, int, int, int] = DIAGRAM) -> _Arrow:
         sx, sy = start
         ex, ey = end
         length = math.hypot(ex - sx, ey - sy) or 1.0
@@ -291,24 +296,33 @@ class Whiteboard:
         tag = None
         tag_pos = (0, 0)
         if text:
-            # text with a white halo (no box) beside the arrow, at the first spot that overlaps nothing already placed
+            # text with a white halo (no box) beside the arrow; choose the spot that covers the least of
+            # the other labels (heavily penalised), the drawing, and the arrow's own line
             tag = renderer(self.script, 23).render(text.split("•")[0].strip(), col, stroke=3, stroke_fill=(255, 255, 255))
-            best, best_overlap = None, float("inf")
-            for frac in (0.2, 0.35, 0.5, 0.1, 0.65):
+
+            def drawing_cover(rect: tuple[float, float, float, float]) -> int:
+                if content is None:
+                    return 0
+                x0, y0 = int(max(rect[0], box[0])) - box[0], int(max(rect[1], box[1])) - box[1]
+                x1, y1 = int(min(rect[2], box[2])) - box[0], int(min(rect[3], box[3])) - box[1]
+                return int(content[y0:y1, x0:x1].sum()) if x1 > x0 and y1 > y0 else 0
+
+            def line_cover(rect: tuple[float, float, float, float]) -> int:
+                return sum(1 for px, py in pts if rect[0] - 6 <= px <= rect[2] + 6 and rect[1] - 6 <= py <= rect[3] + 6)
+
+            best, best_cost = None, float("inf")
+            for frac in (0.1, 0.2, 0.35, 0.5, 0.65):
                 mx, my = pts[int(frac * (len(pts) - 1))]
-                for side in ((1, -1) if i % 2 == 0 else (-1, 1)):
-                    for dist in (30, 48):
+                for side in (1, -1):
+                    for dist in (30, 50, 75, 100):
                         x = min(max(mx - tag.width / 2 - uy * dist * side, 8), W - tag.width - 8)
                         y = min(max(my - tag.height / 2 + ux * dist * side, 118), H - 110 - tag.height)
                         rect = (x, y, x + tag.width, y + tag.height)
                         ov = sum(max(0, min(rect[2], o[2]) - max(rect[0], o[0])) * max(0, min(rect[3], o[3]) - max(rect[1], o[1]))
                                  for o in occupied)
-                        if ov < best_overlap:
-                            best, best_overlap = rect, ov
-                    if best_overlap == 0:
-                        break
-                if best_overlap == 0:
-                    break
+                        cost = 20 * ov + drawing_cover(rect) + 400 * line_cover(rect) + 2 * dist
+                        if cost < best_cost:
+                            best, best_cost = rect, cost
             assert best is not None
             tag_pos = (int(best[0]), int(best[1]))
             occupied.append((best[0] - 6, best[1] - 4, best[2] + 6, best[3] + 4))
