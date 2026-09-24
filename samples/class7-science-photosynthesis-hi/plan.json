@@ -1,0 +1,53 @@
+{
+ "topic_native": "प्रकाश संश्लेषण",
+ "subject_native": "विज्ञान",
+ "learning_objectives": [
+  "Explain that green plants make their own food by photosynthesis",
+  "Identify the raw materials of photosynthesis: carbon dioxide, water, sunlight and chlorophyll",
+  "State that glucose (food) and oxygen are produced, with leaves acting as the food factories of the plant",
+  "Write the word equation for photosynthesis"
+ ],
+ "visual_style": "Clean flat vector textbook illustration with bold dark outlines, simple bright greens, blues and yellows, and a pure white background with no text in the drawing.",
+ "scenes": [
+  {
+   "id": 1,
+   "title": "पौधे खाना कहाँ से लाते हैं?",
+   "title_en": "Where do plants get food?",
+   "learning_goal": "Hook: animals eat food, but a potted plant never eats; how does it grow? Plants make their own food.",
+   "visual_idea": "A child eating a roti next to a healthy potted green plant on a sunny windowsill, with a thought bubble near the plant containing an empty plate.",
+   "target_seconds": 7.8
+  },
+  {
+   "id": 2,
+   "title": "पत्ती: भोजन का कारखाना",
+   "title_en": "Leaf: the food factory",
+   "learning_goal": "Leaves are the food factories of the plant; the green pigment chlorophyll in leaves captures sunlight; tiny pores called stomata take in air.",
+   "visual_idea": "A large single green leaf with a magnified circular inset showing green chlorophyll-containing cells and a tiny stoma pore on the leaf surface; distinct parts: leaf, chlorophyll cells, stoma.",
+   "target_seconds": 10.7
+  },
+  {
+   "id": 3,
+   "title": "क्या-क्या चाहिए?",
+   "title_en": "What is needed?",
+   "learning_goal": "Raw materials: water absorbed by roots, carbon dioxide from air entering through stomata, and sunlight energy.",
+   "visual_idea": "Whole plant in soil with the sun above; blue arrows showing water travelling up from roots through the stem to leaves, grey arrows showing carbon dioxide from air entering the leaf, and yellow rays from the sun hitting the leaf; labelable parts: sun, leaf, stem, roots, water arrows, carbon dioxide arrows.",
+   "target_seconds": 9.8
+  },
+  {
+   "id": 4,
+   "title": "भोजन और ऑक्सीजन बनते हैं",
+   "title_en": "Food and oxygen are made",
+   "learning_goal": "In the leaf, glucose (food) is made and stored as starch; oxygen is released into the air, which we breathe.",
+   "visual_idea": "A green leaf with a small sugar-cube symbol inside it representing glucose/food, bubbles-style arrows of oxygen leaving the leaf toward a person breathing nearby; labelable parts: leaf, glucose symbol, oxygen arrows, person.",
+   "target_seconds": 7.8
+  },
+  {
+   "id": 5,
+   "title": "याद रखो",
+   "title_en": "Remember",
+   "learning_goal": "Recap in one line with the word equation: carbon dioxide + water → (sunlight, chlorophyll) → glucose + oxygen.",
+   "visual_idea": "Board summary of the word equation with a small sun drawn above the arrow and a small green leaf beside it.",
+   "target_seconds": 5.9
+  }
+ ]
+}

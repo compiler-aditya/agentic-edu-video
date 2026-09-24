@@ -1,0 +1,865 @@
+{
+ "duration": 51.56,
+ "fps": 25,
+ "width": 1280,
+ "height": 720,
+ "scenes": [
+  {
+   "scene_id": 1,
+   "title": "पौधे खाना कहाँ से लाते हैं?",
+   "layout": "diagram",
+   "image": "images/scene_1.png",
+   "start": 2.0,
+   "end": 10.064,
+   "vis_start": 1.55,
+   "vis_end": 10.289
+  },
+  {
+   "scene_id": 2,
+   "title": "पत्ती: भोजन की फैक्ट्री",
+   "layout": "diagram",
+   "image": "images/scene_2.png",
+   "start": 10.514,
+   "end": 23.018,
+   "vis_start": 10.289,
+   "vis_end": 23.243
+  },
+  {
+   "scene_id": 3,
+   "title": "क्या-क्या चाहिए?",
+   "layout": "diagram",
+   "image": "images/scene_3.png",
+   "start": 23.468,
+   "end": 34.891999999999996,
+   "vis_start": 23.243,
+   "vis_end": 35.117
+  },
+  {
+   "scene_id": 4,
+   "title": "भोजन और ऑक्सीजन बनते हैं",
+   "layout": "diagram",
+   "image": "images/scene_4.png",
+   "start": 35.342,
+   "end": 43.31,
+   "vis_start": 35.117,
+   "vis_end": 43.535
+  },
+  {
+   "scene_id": 5,
+   "title": "शब्द समीकरण",
+   "layout": "board",
+   "image": "images/scene_5.png",
+   "start": 43.76,
+   "end": 50.552,
+   "vis_start": 43.535,
+   "vis_end": 51.56
+  }
+ ],
+ "captions": [
+  {
+   "start": 2.29,
+   "end": 5.327,
+   "words": [
+    {
+     "text": "हम",
+     "start": 2.29,
+     "end": 2.602
+    },
+    {
+     "text": "रोटी",
+     "start": 2.615,
+     "end": 3.015
+    },
+    {
+     "text": "खाते",
+     "start": 3.028,
+     "end": 3.415
+    },
+    {
+     "text": "हैं,",
+     "start": 3.428,
+     "end": 3.765
+    },
+    {
+     "text": "पौधा",
+     "start": 3.928,
+     "end": 4.415
+    },
+    {
+     "text": "नहीं।",
+     "start": 4.427,
+     "end": 4.977
+    }
+   ],
+   "scene_id": 1
+  },
+  {
+   "start": 5.84,
+   "end": 7.828,
+   "words": [
+    {
+     "text": "पौधा",
+     "start": 5.84,
+     "end": 6.39
+    },
+    {
+     "text": "प्रकाश",
+     "start": 6.403,
+     "end": 6.878
+    },
+    {
+     "text": "संश्लेषण",
+     "start": 6.89,
+     "end": 7.59
+    },
+    {
+     "text": "से",
+     "start": 7.602,
+     "end": 7.815
+    }
+   ],
+   "scene_id": 1
+  },
+  {
+   "start": 7.828,
+   "end": 9.715,
+   "words": [
+    {
+     "text": "भोजन",
+     "start": 7.828,
+     "end": 8.302
+    },
+    {
+     "text": "खुद",
+     "start": 8.315,
+     "end": 8.565
+    },
+    {
+     "text": "बनाता",
+     "start": 8.578,
+     "end": 9.052
+    },
+    {
+     "text": "है।",
+     "start": 9.065,
+     "end": 9.365
+    }
+   ],
+   "scene_id": 1
+  },
+  {
+   "start": 10.761,
+   "end": 13.761,
+   "words": [
+    {
+     "text": "पत्तियाँ",
+     "start": 10.761,
+     "end": 11.386
+    },
+    {
+     "text": "पौधे",
+     "start": 11.399,
+     "end": 11.811
+    },
+    {
+     "text": "की",
+     "start": 11.824,
+     "end": 11.999
+    },
+    {
+     "text": "भोजन",
+     "start": 12.011,
+     "end": 12.486
+    },
+    {
+     "text": "फैक्ट्रियाँ",
+     "start": 12.498,
+     "end": 13.086
+    },
+    {
+     "text": "हैं।",
+     "start": 13.099,
+     "end": 13.411
+    }
+   ],
+   "scene_id": 2
+  },
+  {
+   "start": 14.273,
+   "end": 17.599,
+   "words": [
+    {
+     "text": "हरा",
+     "start": 14.273,
+     "end": 14.711
+    },
+    {
+     "text": "क्लोरोफिल",
+     "start": 14.723,
+     "end": 15.311
+    },
+    {
+     "text": "सूरज",
+     "start": 15.323,
+     "end": 15.773
+    },
+    {
+     "text": "की",
+     "start": 15.786,
+     "end": 15.961
+    },
+    {
+     "text": "रोशनी",
+     "start": 15.973,
+     "end": 16.486
+    },
+    {
+     "text": "पकड़ता",
+     "start": 16.499,
+     "end": 16.961
+    },
+    {
+     "text": "है।",
+     "start": 16.973,
+     "end": 17.249
+    }
+   ],
+   "scene_id": 2
+  },
+  {
+   "start": 18.124,
+   "end": 20.486,
+   "words": [
+    {
+     "text": "नन्हे",
+     "start": 18.124,
+     "end": 18.674
+    },
+    {
+     "text": "छिद्र,",
+     "start": 18.686,
+     "end": 19.261
+    },
+    {
+     "text": "स्टोमेटा,",
+     "start": 19.399,
+     "end": 20.249
+    }
+   ],
+   "scene_id": 2
+  },
+  {
+   "start": 20.486,
+   "end": 22.648,
+   "words": [
+    {
+     "text": "कार्बन",
+     "start": 20.486,
+     "end": 21.036
+    },
+    {
+     "text": "डाइऑक्साइड",
+     "start": 21.048,
+     "end": 21.648
+    },
+    {
+     "text": "लेते",
+     "start": 21.661,
+     "end": 21.973
+    },
+    {
+     "text": "हैं।",
+     "start": 21.986,
+     "end": 22.298
+    }
+   ],
+   "scene_id": 2
+  },
+  {
+   "start": 23.733,
+   "end": 25.671,
+   "words": [
+    {
+     "text": "जड़ें",
+     "start": 23.733,
+     "end": 24.208
+    },
+    {
+     "text": "पानी",
+     "start": 24.221,
+     "end": 24.596
+    },
+    {
+     "text": "सोखती",
+     "start": 24.608,
+     "end": 25.108
+    },
+    {
+     "text": "हैं,",
+     "start": 25.121,
+     "end": 25.421
+    }
+   ],
+   "scene_id": 3
+  },
+  {
+   "start": 25.671,
+   "end": 27.933,
+   "words": [
+    {
+     "text": "तना",
+     "start": 25.671,
+     "end": 26.083
+    },
+    {
+     "text": "पत्ती",
+     "start": 26.095,
+     "end": 26.495
+    },
+    {
+     "text": "तक",
+     "start": 26.508,
+     "end": 26.72
+    },
+    {
+     "text": "पहुँचाता",
+     "start": 26.733,
+     "end": 27.296
+    },
+    {
+     "text": "है।",
+     "start": 27.308,
+     "end": 27.583
+    }
+   ],
+   "scene_id": 3
+  },
+  {
+   "start": 28.445,
+   "end": 31.32,
+   "words": [
+    {
+     "text": "स्टोमेटा",
+     "start": 28.445,
+     "end": 29.208
+    },
+    {
+     "text": "कार्बन",
+     "start": 29.221,
+     "end": 29.733
+    },
+    {
+     "text": "डाइऑक्साइड",
+     "start": 29.745,
+     "end": 30.321
+    },
+    {
+     "text": "लाते",
+     "start": 30.333,
+     "end": 30.658
+    },
+    {
+     "text": "हैं।",
+     "start": 30.67,
+     "end": 30.97
+    }
+   ],
+   "scene_id": 3
+  },
+  {
+   "start": 31.846,
+   "end": 34.533,
+   "words": [
+    {
+     "text": "सूरज",
+     "start": 31.846,
+     "end": 32.433
+    },
+    {
+     "text": "और",
+     "start": 32.445,
+     "end": 32.683
+    },
+    {
+     "text": "क्लोरोफिल",
+     "start": 32.695,
+     "end": 33.333
+    },
+    {
+     "text": "भी",
+     "start": 33.346,
+     "end": 33.558
+    },
+    {
+     "text": "चाहिए।",
+     "start": 33.571,
+     "end": 34.183
+    }
+   ],
+   "scene_id": 3
+  },
+  {
+   "start": 35.59,
+   "end": 37.64,
+   "words": [
+    {
+     "text": "पत्ती",
+     "start": 35.59,
+     "end": 36.052
+    },
+    {
+     "text": "में",
+     "start": 36.065,
+     "end": 36.178
+    },
+    {
+     "text": "ग्लूकोज़",
+     "start": 36.19,
+     "end": 36.69
+    },
+    {
+     "text": "बनता",
+     "start": 36.702,
+     "end": 37.065
+    },
+    {
+     "text": "है,",
+     "start": 37.077,
+     "end": 37.352
+    }
+   ],
+   "scene_id": 4
+  },
+  {
+   "start": 37.64,
+   "end": 40.077,
+   "words": [
+    {
+     "text": "जो",
+     "start": 37.64,
+     "end": 37.865
+    },
+    {
+     "text": "स्टार्च",
+     "start": 37.878,
+     "end": 38.365
+    },
+    {
+     "text": "बनकर",
+     "start": 38.378,
+     "end": 38.778
+    },
+    {
+     "text": "जमा",
+     "start": 38.79,
+     "end": 39.077
+    },
+    {
+     "text": "होता",
+     "start": 39.09,
+     "end": 39.428
+    },
+    {
+     "text": "है।",
+     "start": 39.44,
+     "end": 39.727
+    }
+   ],
+   "scene_id": 4
+  },
+  {
+   "start": 40.602,
+   "end": 42.915,
+   "words": [
+    {
+     "text": "ऑक्सीजन",
+     "start": 40.602,
+     "end": 41.365
+    },
+    {
+     "text": "बाहर",
+     "start": 41.378,
+     "end": 41.778
+    },
+    {
+     "text": "निकलती",
+     "start": 41.79,
+     "end": 42.302
+    },
+    {
+     "text": "है।",
+     "start": 42.315,
+     "end": 42.565
+    }
+   ],
+   "scene_id": 4
+  },
+  {
+   "start": 43.955,
+   "end": 46.305,
+   "words": [
+    {
+     "text": "कार्बन",
+     "start": 43.955,
+     "end": 44.555
+    },
+    {
+     "text": "डाइऑक्साइड",
+     "start": 44.568,
+     "end": 45.218
+    },
+    {
+     "text": "प्लस",
+     "start": 45.23,
+     "end": 45.53
+    },
+    {
+     "text": "पानी,",
+     "start": 45.543,
+     "end": 46.043
+    }
+   ],
+   "scene_id": 5
+  },
+  {
+   "start": 46.305,
+   "end": 48.08,
+   "words": [
+    {
+     "text": "धूप",
+     "start": 46.305,
+     "end": 46.718
+    },
+    {
+     "text": "और",
+     "start": 46.73,
+     "end": 46.98
+    },
+    {
+     "text": "क्लोरोफिल",
+     "start": 46.993,
+     "end": 47.618
+    },
+    {
+     "text": "से,",
+     "start": 47.63,
+     "end": 47.955
+    }
+   ],
+   "scene_id": 5
+  },
+  {
+   "start": 48.08,
+   "end": 50.117,
+   "words": [
+    {
+     "text": "ग्लूकोज़",
+     "start": 48.08,
+     "end": 48.667
+    },
+    {
+     "text": "प्लस",
+     "start": 48.68,
+     "end": 48.967
+    },
+    {
+     "text": "ऑक्सीजन।",
+     "start": 48.98,
+     "end": 49.767
+    }
+   ],
+   "scene_id": 5
+  }
+ ],
+ "events": [
+  {
+   "scene_id": 1,
+   "kind": "title",
+   "start": 1.85,
+   "end": 3.077,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 1,
+   "kind": "draw",
+   "start": 3.177,
+   "end": 4.477,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 1,
+   "kind": "color",
+   "start": 4.477,
+   "end": 5.177,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 1,
+   "kind": "highlight",
+   "start": 4.477,
+   "end": 4.927,
+   "index": 0,
+   "cue": "नहीं",
+   "cue_time": 4.427
+  },
+  {
+   "scene_id": 1,
+   "kind": "label",
+   "start": 6.89,
+   "end": 7.64,
+   "index": 1,
+   "cue": "संश्लेषण",
+   "cue_time": 6.89
+  },
+  {
+   "scene_id": 1,
+   "kind": "arrow",
+   "start": 8.315,
+   "end": 8.915,
+   "index": 2,
+   "cue": "खुद बनाता",
+   "cue_time": 8.315
+  },
+  {
+   "scene_id": 2,
+   "kind": "title",
+   "start": 10.364,
+   "end": 11.409,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 2,
+   "kind": "draw",
+   "start": 11.509,
+   "end": 14.153,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 2,
+   "kind": "color",
+   "start": 14.153,
+   "end": 14.853,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 2,
+   "kind": "label",
+   "start": 14.273,
+   "end": 15.023,
+   "index": 0,
+   "cue": "हरा क्लोरोफिल",
+   "cue_time": 14.273
+  },
+  {
+   "scene_id": 2,
+   "kind": "arrow",
+   "start": 15.973,
+   "end": 16.573,
+   "index": 1,
+   "cue": "रोशनी पकड़ता",
+   "cue_time": 15.973
+  },
+  {
+   "scene_id": 2,
+   "kind": "label",
+   "start": 18.124,
+   "end": 18.874,
+   "index": 2,
+   "cue": "नन्हे छिद्र,",
+   "cue_time": 18.124
+  },
+  {
+   "scene_id": 2,
+   "kind": "arrow",
+   "start": 20.486,
+   "end": 21.086,
+   "index": 3,
+   "cue": "कार्बन डाइऑक्साइड",
+   "cue_time": 20.486
+  },
+  {
+   "scene_id": 3,
+   "kind": "title",
+   "start": 23.318,
+   "end": 24.045,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 3,
+   "kind": "draw",
+   "start": 24.145,
+   "end": 25.975,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 3,
+   "kind": "color",
+   "start": 25.975,
+   "end": 26.675,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 3,
+   "kind": "arrow",
+   "start": 26.095,
+   "end": 26.695,
+   "index": 0,
+   "cue": "पत्ती तक",
+   "cue_time": 26.095
+  },
+  {
+   "scene_id": 3,
+   "kind": "arrow",
+   "start": 29.221,
+   "end": 29.821,
+   "index": 1,
+   "cue": "कार्बन डाइऑक्साइड",
+   "cue_time": 29.221
+  },
+  {
+   "scene_id": 3,
+   "kind": "arrow",
+   "start": 31.846,
+   "end": 32.446,
+   "index": 2,
+   "cue": "सूरज और",
+   "cue_time": 31.846
+  },
+  {
+   "scene_id": 3,
+   "kind": "label",
+   "start": 33.346,
+   "end": 34.096,
+   "index": 3,
+   "cue": "भी चाहिए",
+   "cue_time": 33.346
+  },
+  {
+   "scene_id": 4,
+   "kind": "title",
+   "start": 35.192,
+   "end": 36.283,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 4,
+   "kind": "draw",
+   "start": 36.383,
+   "end": 37.683,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 4,
+   "kind": "color",
+   "start": 37.683,
+   "end": 38.383,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 4,
+   "kind": "label",
+   "start": 37.683,
+   "end": 38.433,
+   "index": 0,
+   "cue": "जो स्टार्च",
+   "cue_time": 37.64
+  },
+  {
+   "scene_id": 4,
+   "kind": "highlight",
+   "start": 38.79,
+   "end": 39.24,
+   "index": 1,
+   "cue": "जमा होता",
+   "cue_time": 38.79
+  },
+  {
+   "scene_id": 4,
+   "kind": "arrow",
+   "start": 40.602,
+   "end": 41.202,
+   "index": 2,
+   "cue": "ऑक्सीजन बाहर",
+   "cue_time": 40.602
+  },
+  {
+   "scene_id": 5,
+   "kind": "title",
+   "start": 43.61,
+   "end": 44.11,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 5,
+   "kind": "draw",
+   "start": 44.21,
+   "end": 46.61,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 5,
+   "kind": "color",
+   "start": 46.61,
+   "end": 47.31,
+   "index": 0,
+   "cue": "",
+   "cue_time": null
+  },
+  {
+   "scene_id": 5,
+   "kind": "line",
+   "start": 45.23,
+   "end": 46.521,
+   "index": 0,
+   "cue": "प्लस पानी,",
+   "cue_time": 45.23
+  },
+  {
+   "scene_id": 5,
+   "kind": "line",
+   "start": 46.73,
+   "end": 47.703,
+   "index": 1,
+   "cue": "और क्लोरोफिल",
+   "cue_time": 46.73
+  },
+  {
+   "scene_id": 5,
+   "kind": "line",
+   "start": 48.08,
+   "end": 49.189,
+   "index": 2,
+   "cue": "ग्लूकोज़ प्लस",
+   "cue_time": 48.08
+  }
+ ],
+ "audio_path": "narration.wav"
+}

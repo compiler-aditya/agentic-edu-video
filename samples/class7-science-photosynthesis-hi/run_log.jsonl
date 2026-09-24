@@ -1,0 +1,253 @@
+{"t": 0.02, "agent": "orchestrator", "event": "start", "message": "Class 7 → Science → Photosynthesis (narration language: Hindi)", "run_dir": "output/class7-science-photosynthesis-hi-20260924-170458"}
+{"t": 0.02, "agent": "orchestrator", "event": "models", "message": "preset 'best': planner=anthropic/claude-opus-5.5, writer=anthropic/claude-opus-5.5, reviewer=openai/gpt-5.5, vision=google/gemini-3.1-pro-preview, audio=google/gemini-3.1-pro-preview, image=google/gemini-3-pro-image", "models": {"planner": "anthropic/claude-opus-5.5", "writer": "anthropic/claude-opus-5.5", "reviewer": "openai/gpt-5.5", "vision": "google/gemini-3.1-pro-preview", "audio": "google/gemini-3.1-pro-preview", "image": "google/gemini-3-pro-image"}}
+{"t": 0.02, "agent": "planner", "event": "start", "message": "planning scenes for Class 7 → Science → Photosynthesis (narration language: Hindi)"}
+{"t": 14.6, "agent": "llm", "event": "call", "message": "planner.plan", "model": "anthropic/claude-opus-5.5", "cost": 0.027332, "latency": 14.58}
+{"t": 14.6, "agent": "planner", "event": "done", "message": "5 scenes: Where do plants get food? | Leaf: the food factory | What is needed? | Food and oxygen are made | Remember", "objectives": ["Explain that green plants make their own food by photosynthesis", "Identify the raw materials of photosynthesis: carbon dioxide, water, sunlight and chlorophyll", "State that glucose (food) and oxygen are produced, with leaves acting as the food factories of the plant", "Write the word equation for photosynthesis"]}
+{"t": 14.6, "agent": "writer", "event": "draft", "message": "writing 5 scenes (~93 words @ 2.20 w/s)"}
+{"t": 56.13, "agent": "llm", "event": "call", "message": "writer.draft", "model": "anthropic/claude-opus-5.5", "cost": 0.098624, "latency": 41.53}
+{"t": 82.02, "agent": "llm", "event": "call", "message": "script_reviewer.1", "model": "openai/gpt-5.5", "cost": 0.035395, "latency": 25.88}
+{"t": 82.02, "agent": "script_reviewer", "event": "issue", "message": "[major/coherence] scene 5: The learning objective asks students to write the word equation for photosynthesis, but the scene only states it in a sentence. It does not present the equation format with reactants, products, plus signs and an arrow."}
+{"t": 82.02, "agent": "script_reviewer", "event": "issue", "message": "[minor/factual] scene 2: “स्टोमेटा, हवा अंदर लेते हैं” is a little misleading because stomata are openings that allow gas exchange; they do not actively ‘take in’ air. The key gas for photosynthesis is carbon dioxide."}
+{"t": 82.02, "agent": "script_reviewer", "event": "issue", "message": "[minor/language] scene 2: “पत्ती पौधे का भोजन कारखाना है” is understandable but slightly unnatural in Hindi."}
+{"t": 82.02, "agent": "script_reviewer", "event": "issue", "message": "[minor/language] scene 5: “कार्बन डाइऑक्साइड और पानी, धूप और क्लोरोफिल से, ग्लूकोज़ और ऑक्सीजन बनाते हैं” is grammatically a bit awkward; it sounds as if the materials themselves actively make the products."}
+{"t": 82.02, "agent": "script_reviewer", "event": "verdict", "message": "1: REJECTED score=7/10, 1 blocking issue(s) — Script is mostly scientifically sound, age-appropriate, and flows well for Class 7. It explains that leaves make food using water, carbon di", "score": 7, "approved": false}
+{"t": 82.02, "agent": "writer", "event": "revise", "message": "fixing 4 issue(s) in scenes [2, 5]"}
+{"t": 96.37, "agent": "llm", "event": "call", "message": "writer.revise", "model": "anthropic/claude-opus-5.5", "cost": 0.037736, "latency": 14.35}
+{"t": 96.37, "agent": "script_reviewer", "event": "rule", "message": "scene 5: 24 words vs target 13", "severity": "major"}
+{"t": 116.17, "agent": "llm", "event": "call", "message": "script_reviewer.2", "model": "openai/gpt-5.5", "cost": 0.030785, "latency": 19.79}
+{"t": 116.17, "agent": "script_reviewer", "event": "issue", "message": "[minor/language] scene 5: “कार्बन डाइऑक्साइड धन पानी” is understandable but sounds a little unnatural/ambiguous in spoken Hindi for a TTS video. Students may understand “धन” as ‘positive’ rather than the plus sign unless the equation is shown visually."}
+{"t": 116.17, "agent": "script_reviewer", "event": "issue", "message": "[minor/coherence] scene 3: The scene title asks “क्या-क्या चाहिए?”, but the narration lists water, carbon dioxide, and sunlight; chlorophyll was mentioned in the previous scene, but not repeated here. Since the objective explicitly includes chlorophyll, repeating it would make the list complete."}
+{"t": 116.17, "agent": "script_reviewer", "event": "verdict", "message": "2: REJECTED score=8/10, 1 blocking issue(s) — Script is scientifically sound for Class 7 and covers all learning objectives, including plants making their own food, leaves as food factor", "score": 8, "approved": false}
+{"t": 116.17, "agent": "writer", "event": "revise", "message": "fixing 3 issue(s) in scenes [3, 5]"}
+{"t": 135.94, "agent": "llm", "event": "call", "message": "writer.revise", "model": "anthropic/claude-opus-5.5", "cost": 0.048648, "latency": 19.77}
+{"t": 154.4, "agent": "llm", "event": "call", "message": "script_reviewer.3", "model": "openai/gpt-5.5", "cost": 0.02671, "latency": 18.45}
+{"t": 154.41, "agent": "script_reviewer", "event": "issue", "message": "[minor/language] scene 5: The word equation is correct in content, but the narration is a sentence fragment and may sound slightly incomplete in TTS: “कार्बन डाइऑक्साइड प्लस पानी...”"}
+{"t": 154.41, "agent": "script_reviewer", "event": "verdict", "message": "3: APPROVED score=9/10, 0 blocking issue(s) — Script is scientifically sound for Class 7, age-appropriate, and covers all listed objectives: plants make their own food, leaves as food fa", "score": 9, "approved": true}
+{"t": 154.41, "agent": "storyboard", "event": "draft", "message": "planning drawings and synced annotations for 5 scenes"}
+{"t": 194.66, "agent": "llm", "event": "call", "message": "storyboard.draft", "model": "anthropic/claude-opus-5.5", "cost": 0.104676, "latency": 40.25}
+{"t": 194.67, "agent": "storyboard", "event": "rule", "message": "scene 2 arrow 'CO₂': text must start with the Hindi term"}
+{"t": 194.67, "agent": "storyboard", "event": "rule", "message": "scene 3 arrow 'CO₂': text must start with the Hindi term"}
+{"t": 194.67, "agent": "storyboard", "event": "verdict", "message": "round 1: INVALID — 2 issue(s)"}
+{"t": 194.67, "agent": "storyboard", "event": "repair", "message": "fixing 2 issue(s)"}
+{"t": 227.12, "agent": "llm", "event": "call", "message": "storyboard.repair", "model": "anthropic/claude-opus-5.5", "cost": 0.09694, "latency": 32.44}
+{"t": 227.13, "agent": "storyboard", "event": "verdict", "message": "round 2: VALID — s1:diagram/4, s2:diagram/4, s3:diagram/4, s4:diagram/4, s5:board/3 (19 synced annotations)"}
+{"t": 227.13, "agent": "orchestrator", "event": "fanout", "message": "visual agent and narrator agent running in parallel"}
+{"t": 227.13, "agent": "visual", "event": "start", "message": "drawing 5 illustrations with google/gemini-3-pro-image"}
+{"t": 227.13, "agent": "narrator", "event": "tts", "message": "scene 1 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 227.13, "agent": "narrator", "event": "tts", "message": "scene 2 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 227.13, "agent": "narrator", "event": "tts", "message": "scene 3 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 227.13, "agent": "narrator", "event": "tts", "message": "scene 4 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 227.13, "agent": "narrator", "event": "tts", "message": "scene 5 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 243.18, "agent": "llm", "event": "call", "message": "audio_qa.scene4", "model": "google/gemini-3.1-pro-preview", "cost": 0.00766, "latency": 14.33}
+{"t": 243.18, "agent": "audio_qa", "event": "verdict", "message": "scene 4: PASS 9.31s, 2.47 w/s, timestamps=tts coverage=100%, offset +150 ms (MAD 5 ms over 3 pause anchors), ASR sim=0.99", "scene": 4, "ok": true, "asr": 0.987}
+{"t": 248.07, "agent": "llm", "event": "call", "message": "visual.scene1.try1", "model": "google/gemini-3-pro-image", "cost": 0.138944, "latency": 20.95}
+{"t": 252.04, "agent": "llm", "event": "call", "message": "audio_qa.scene1", "model": "google/gemini-3.1-pro-preview", "cost": 0.009928, "latency": 23.18}
+{"t": 252.04, "agent": "audio_qa", "event": "verdict", "message": "scene 1: PASS 10.49s, 2.04 w/s, timestamps=tts coverage=100%, offset +164 ms (MAD 9 ms over 4 pause anchors), ASR sim=1.00", "scene": 1, "ok": true, "asr": 1.0}
+{"t": 255.1, "agent": "llm", "event": "call", "message": "audio_qa.scene5", "model": "google/gemini-3.1-pro-preview", "cost": 0.007396, "latency": 26.22}
+{"t": 255.1, "agent": "audio_qa", "event": "verdict", "message": "scene 5: PASS 7.37s, 2.11 w/s, timestamps=tts coverage=100%, offset +93 ms (MAD 3 ms over 3 pause anchors), ASR sim=1.00", "scene": 5, "ok": true, "asr": 1.0}
+{"t": 260.33, "agent": "llm", "event": "call", "message": "audio_qa.scene3", "model": "google/gemini-3.1-pro-preview", "cost": 0.00888, "latency": 31.32}
+{"t": 260.33, "agent": "audio_qa", "event": "verdict", "message": "scene 3: PASS 12.58s, 2.10 w/s, timestamps=tts coverage=100%, offset +155 ms (MAD 27 ms over 4 pause anchors), ASR sim=1.00", "scene": 3, "ok": true, "asr": 1.0}
+{"t": 262.79, "agent": "llm", "event": "call", "message": "audio_qa.scene2", "model": "google/gemini-3.1-pro-preview", "cost": 0.010114, "latency": 33.21}
+{"t": 262.8, "agent": "audio_qa", "event": "verdict", "message": "scene 2: PASS 13.99s, 1.96 w/s, timestamps=tts coverage=100%, offset +158 ms (MAD 55 ms over 5 pause anchors), ASR sim=0.98", "scene": 2, "ok": true, "asr": 0.984}
+{"t": 262.8, "agent": "orchestrator", "event": "duration", "message": "round 1: 58.5s outside 31.5-58.5s → asking writer to shorten 5 scene(s) by ×0.75"}
+{"t": 262.8, "agent": "writer", "event": "retime", "message": "shorten scenes [1, 2, 3, 4, 5] -> s1:19→14w, s2:25→19w, s3:24→18w, s4:20→15w, s5:13→10w"}
+{"t": 271.11, "agent": "llm", "event": "call", "message": "visual_critic.scene1", "model": "google/gemini-3.1-pro-preview", "cost": 0.011216, "latency": 22.9}
+{"t": 279.02, "agent": "llm", "event": "call", "message": "visual.scene5.try1", "model": "google/gemini-3-pro-image", "cost": 0.137872, "latency": 30.94}
+{"t": 284.5, "agent": "llm", "event": "call", "message": "grounder.scene1", "model": "google/gemini-3.1-pro-preview", "cost": 0.007702, "latency": 13.38}
+{"t": 284.5, "agent": "grounder", "event": "locate", "message": "scene 1: located 5/5 parts"}
+{"t": 284.5, "agent": "visual_critic", "event": "verdict", "message": "scene 1 attempt 1: APPROVED score=10/10", "score": 10}
+{"t": 284.58, "agent": "visual", "event": "select", "message": "scene 1: using scene_1_try1.png"}
+{"t": 301.28, "agent": "llm", "event": "call", "message": "writer.retime", "model": "anthropic/claude-opus-5.5", "cost": 0.071048, "latency": 38.48}
+{"t": 304.02, "agent": "llm", "event": "call", "message": "visual.scene4.try1", "model": "google/gemini-3-pro-image", "cost": 0.138596, "latency": 24.99}
+{"t": 318.09, "agent": "llm", "event": "call", "message": "visual_critic.scene5", "model": "google/gemini-3.1-pro-preview", "cost": 0.008328, "latency": 38.99}
+{"t": 335.63, "agent": "llm", "event": "call", "message": "script_reviewer.retime1", "model": "openai/gpt-5.5", "cost": 0.04182, "latency": 34.34}
+{"t": 335.64, "agent": "script_reviewer", "event": "issue", "message": "[minor/language] scene 2: “पत्तियाँ पौधे की भोजन फैक्ट्रियाँ हैं” is understandable, but slightly unnatural in Hindi."}
+{"t": 335.64, "agent": "script_reviewer", "event": "issue", "message": "[minor/factual] scene 3: “स्टोमेटा कार्बन डाइऑक्साइड लाते हैं” can suggest that stomata actively bring carbon dioxide. Stomata are openings that allow carbon dioxide to enter."}
+{"t": 335.64, "agent": "script_reviewer", "event": "issue", "message": "[minor/coherence] scene 5: The word equation is narrated, but the arrow/‘बनते हैं’ relationship is not very explicit for students learning to write it."}
+{"t": 335.64, "agent": "script_reviewer", "event": "verdict", "message": "retime1: APPROVED score=8/10, 0 blocking issue(s) — Script scientifically covers the main Class 7 objectives: plants make their own food by photosynthesis, leaves act as food factories, carbon", "score": 8, "approved": true}
+{"t": 335.64, "agent": "narrator", "event": "tts", "message": "scene 1 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 335.64, "agent": "narrator", "event": "tts", "message": "scene 2 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 335.64, "agent": "narrator", "event": "tts", "message": "scene 3 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 335.64, "agent": "narrator", "event": "tts", "message": "scene 4 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 335.64, "agent": "narrator", "event": "tts", "message": "scene 5 take 1: hi-IN-SwaraNeural rate +0%"}
+{"t": 338.4, "agent": "llm", "event": "call", "message": "visual.scene3.try1", "model": "google/gemini-3-pro-image", "cost": 0.139236, "latency": 34.38}
+{"t": 342.22, "agent": "llm", "event": "call", "message": "grounder.scene5", "model": "google/gemini-3.1-pro-preview", "cost": 0.004066, "latency": 24.12}
+{"t": 342.22, "agent": "grounder", "event": "locate", "message": "scene 5: located 2/2 parts"}
+{"t": 342.22, "agent": "visual_critic", "event": "verdict", "message": "scene 5 attempt 1: APPROVED score=10/10", "score": 10}
+{"t": 342.25, "agent": "visual", "event": "select", "message": "scene 5: using scene_5_try1.png"}
+{"t": 343.59, "agent": "llm", "event": "call", "message": "visual_critic.scene4", "model": "google/gemini-3.1-pro-preview", "cost": 0.01146, "latency": 39.46}
+{"t": 350.48, "agent": "llm", "event": "call", "message": "audio_qa.scene5", "model": "google/gemini-3.1-pro-preview", "cost": 0.009346, "latency": 13.14}
+{"t": 350.48, "agent": "audio_qa", "event": "verdict", "message": "scene 5: PASS 6.79s, 1.97 w/s, timestamps=tts coverage=100%, offset +95 ms (MAD 5 ms over 3 pause anchors), ASR sim=1.00", "scene": 5, "ok": true, "asr": 1.0}
+{"t": 353.41, "agent": "llm", "event": "call", "message": "audio_qa.scene4", "model": "google/gemini-3.1-pro-preview", "cost": 0.011302, "latency": 15.97}
+{"t": 353.42, "agent": "audio_qa", "event": "verdict", "message": "scene 4: PASS 7.97s, 2.22 w/s, timestamps=tts coverage=100%, offset +148 ms (MAD 8 ms over 3 pause anchors), ASR sim=1.00", "scene": 4, "ok": true, "asr": 1.0}
+{"t": 359.63, "agent": "llm", "event": "call", "message": "audio_qa.scene2", "model": "google/gemini-3.1-pro-preview", "cost": 0.010952, "latency": 21.98}
+{"t": 359.63, "agent": "audio_qa", "event": "verdict", "message": "scene 2: PASS 12.50s, 1.78 w/s, timestamps=tts coverage=100%, offset +147 ms (MAD 31 ms over 5 pause anchors), ASR sim=0.98", "scene": 2, "ok": true, "asr": 0.981}
+{"t": 362.88, "agent": "llm", "event": "call", "message": "audio_qa.scene3", "model": "google/gemini-3.1-pro-preview", "cost": 0.011606, "latency": 24.92}
+{"t": 362.88, "agent": "audio_qa", "event": "verdict", "message": "scene 3: PASS 11.42s, 1.85 w/s, timestamps=tts coverage=100%, offset +165 ms (MAD 14 ms over 4 pause anchors), ASR sim=0.99", "scene": 3, "ok": true, "asr": 0.989}
+{"t": 367.86, "agent": "llm", "event": "call", "message": "audio_qa.scene1", "model": "google/gemini-3.1-pro-preview", "cost": 0.008738, "latency": 29.55}
+{"t": 367.87, "agent": "audio_qa", "event": "verdict", "message": "scene 1: PASS 8.06s, 2.04 w/s, timestamps=tts coverage=100%, offset +190 ms (MAD 8 ms over 3 pause anchors), ASR sim=1.00", "scene": 1, "ok": true, "asr": 1.0}
+{"t": 367.87, "agent": "orchestrator", "event": "duration", "message": "round 2: 51.6s is inside 31.5-58.5s ✓"}
+{"t": 367.87, "agent": "storyboard", "event": "rule", "message": "scene 1 highlight 'thought_bubble': cue 'बढ़ता कैसे' is not copied exactly from the narration"}
+{"t": 367.87, "agent": "storyboard", "event": "rule", "message": "scene 1 'plant': cue 'पौधा नहीं' is within the first 5 words (the pen is still writing the title / sketching) — pick words spoken later"}
+{"t": 367.87, "agent": "storyboard", "event": "rule", "message": "scene 3 arrow 'पानी': cue 'तने से पत्ती' is not copied exactly from the narration"}
+{"t": 367.87, "agent": "storyboard", "event": "rule", "message": "scene 3 arrow 'धूप': cue 'सूरज की रोशनी' is not copied exactly from the narration"}
+{"t": 367.87, "agent": "storyboard", "event": "rule", "message": "scene 4 arrow 'ऑक्सीजन': cue 'निकली ऑक्सीजन' is not copied exactly from the narration"}
+{"t": 367.87, "agent": "storyboard", "event": "rule", "message": "scene 4 label 'साँस लेना': cue 'साँस में लेते' is not copied exactly from the narration"}
+{"t": 367.87, "agent": "storyboard", "event": "rule", "message": "scene 4 'ग्लूकोज़ • Glucose': cue 'बनता' is within the first 5 words (the pen is still writing the title / sketching) — pick words spoken later"}
+{"t": 367.87, "agent": "storyboard", "event": "verdict", "message": "round 1: INVALID — 7 issue(s)"}
+{"t": 367.87, "agent": "storyboard", "event": "repair", "message": "fixing 7 issue(s) (visuals locked)"}
+{"t": 377.19, "agent": "llm", "event": "call", "message": "visual_critic.scene3", "model": "google/gemini-3.1-pro-preview", "cost": 0.01166, "latency": 38.68}
+{"t": 382.02, "agent": "llm", "event": "call", "message": "grounder.scene4", "model": "google/gemini-3.1-pro-preview", "cost": 0.006722, "latency": 38.42}
+{"t": 382.02, "agent": "grounder", "event": "locate", "message": "scene 4: located 4/4 parts"}
+{"t": 382.02, "agent": "visual_critic", "event": "verdict", "message": "scene 4 attempt 1: APPROVED score=10/10", "score": 10}
+{"t": 382.09, "agent": "visual", "event": "select", "message": "scene 4: using scene_4_try1.png"}
+{"t": 385.11, "agent": "llm", "event": "call", "message": "visual.scene2.try1", "model": "google/gemini-3-pro-image", "cost": 0.138396, "latency": 46.71}
+{"t": 391.57, "agent": "llm", "event": "call", "message": "grounder.scene3", "model": "google/gemini-3.1-pro-preview", "cost": 0.008614, "latency": 14.37}
+{"t": 391.58, "agent": "grounder", "event": "locate", "message": "scene 3: located 6/6 parts"}
+{"t": 391.58, "agent": "visual_critic", "event": "verdict", "message": "scene 3 attempt 1: APPROVED score=10/10", "score": 10}
+{"t": 391.65, "agent": "visual", "event": "select", "message": "scene 3: using scene_3_try1.png"}
+{"t": 400.59, "agent": "llm", "event": "call", "message": "visual_critic.scene2", "model": "google/gemini-3.1-pro-preview", "cost": 0.012142, "latency": 15.35}
+{"t": 405.15, "agent": "llm", "event": "call", "message": "grounder.scene2", "model": "google/gemini-3.1-pro-preview", "cost": 0.00544, "latency": 4.56}
+{"t": 405.15, "agent": "grounder", "event": "locate", "message": "scene 2: located 4/4 parts"}
+{"t": 405.15, "agent": "visual_critic", "event": "verdict", "message": "scene 2 attempt 1: APPROVED score=10/10", "score": 10}
+{"t": 405.23, "agent": "visual", "event": "select", "message": "scene 2: using scene_2_try1.png"}
+{"t": 421.39, "agent": "llm", "event": "call", "message": "storyboard.repair", "model": "anthropic/claude-opus-5.5", "cost": 0.111284, "latency": 53.52}
+{"t": 421.4, "agent": "storyboard", "event": "verdict", "message": "round 2: VALID — s1:diagram/3, s2:diagram/4, s3:diagram/4, s4:diagram/3, s5:board/3 (17 synced annotations)"}
+{"t": 421.45, "agent": "sync", "event": "calibrate", "message": "scene 1: TTS timestamps shifted +190 ms to match audible speech"}
+{"t": 421.46, "agent": "sync", "event": "calibrate", "message": "scene 2: TTS timestamps shifted +147 ms to match audible speech"}
+{"t": 421.48, "agent": "sync", "event": "calibrate", "message": "scene 3: TTS timestamps shifted +165 ms to match audible speech"}
+{"t": 421.49, "agent": "sync", "event": "calibrate", "message": "scene 4: TTS timestamps shifted +148 ms to match audible speech"}
+{"t": 421.5, "agent": "sync", "event": "calibrate", "message": "scene 5: TTS timestamps shifted +95 ms to match audible speech"}
+{"t": 421.5, "agent": "sync", "event": "validate", "message": "timeline OK: captions monotonic, events inside their scenes, narration inside visual slots"}
+{"t": 421.5, "agent": "sync", "event": "done", "message": "timeline 51.56s (1289 frames), 17 captions, 32 animation events; 17 cued to spoken words, median start lag 0 ms"}
+{"t": 421.5, "agent": "renderer", "event": "start", "message": "rendering whiteboard video 51.56s @ 25fps 1280x720"}
+{"t": 430.02, "agent": "renderer", "event": "done", "message": "wrote final.mp4 (3.0 MB)"}
+{"t": 430.21, "agent": "final_qa", "event": "probe", "message": "video 51.560s, audio 51.563s, drift 3 ms, decode OK"}
+{"t": 452.33, "agent": "llm", "event": "call", "message": "final_qa.frames", "model": "google/gemini-3.1-pro-preview", "cost": 0.044314, "latency": 22.11}
+{"t": 452.33, "agent": "final_qa", "event": "frame", "message": "scene 1: ok"}
+{"t": 452.33, "agent": "final_qa", "event": "frame", "message": "scene 2: FLAG — The expected separate labels for 'Stomata' and 'Carbon Dioxide' have been merged into a single overlapping string 'कार्बन डाइऑक्साइडStomata'.; The Devanagari te"}
+{"t": 452.33, "agent": "final_qa", "event": "frame", "message": "scene 3: ok"}
+{"t": 452.33, "agent": "final_qa", "event": "frame", "message": "scene 4: ok"}
+{"t": 452.33, "agent": "final_qa", "event": "frame", "message": "scene 5: ok"}
+{"t": 452.33, "agent": "final_qa", "event": "verdict", "message": "FAIL — scene 2: caption/render issue: The expected separate labels for 'Stomata' and 'Carbon Dioxide' have been merged into a single overlapping string 'कार्बन डाइऑक्साइडStomata'.; The Devanagari text rendering in the merged label is brok redo visuals [2]"}
+{"t": 452.33, "agent": "orchestrator", "event": "repair", "message": "scene 2: drawing does not match narration → redraw"}
+{"t": 473.91, "agent": "llm", "event": "call", "message": "visual.scene2.fix1", "model": "google/gemini-3-pro-image", "cost": 0.139032, "latency": 21.58}
+{"t": 483.28, "agent": "llm", "event": "call", "message": "visual_critic.scene2", "model": "google/gemini-3.1-pro-preview", "cost": 0.011962, "latency": 9.24}
+{"t": 487.68, "agent": "llm", "event": "call", "message": "grounder.scene2", "model": "google/gemini-3.1-pro-preview", "cost": 0.005452, "latency": 4.4}
+{"t": 487.68, "agent": "grounder", "event": "locate", "message": "scene 2: located 4/4 parts"}
+{"t": 487.68, "agent": "visual_critic", "event": "verdict", "message": "scene 2 attempt 1: APPROVED score=10/10", "score": 10}
+{"t": 487.77, "agent": "visual", "event": "select", "message": "scene 2: using scene_2_fix1.png"}
+{"t": 487.8, "agent": "sync", "event": "calibrate", "message": "scene 1: TTS timestamps shifted +190 ms to match audible speech"}
+{"t": 487.81, "agent": "sync", "event": "calibrate", "message": "scene 2: TTS timestamps shifted +147 ms to match audible speech"}
+{"t": 487.82, "agent": "sync", "event": "calibrate", "message": "scene 3: TTS timestamps shifted +165 ms to match audible speech"}
+{"t": 487.83, "agent": "sync", "event": "calibrate", "message": "scene 4: TTS timestamps shifted +148 ms to match audible speech"}
+{"t": 487.84, "agent": "sync", "event": "calibrate", "message": "scene 5: TTS timestamps shifted +95 ms to match audible speech"}
+{"t": 487.85, "agent": "sync", "event": "validate", "message": "timeline OK: captions monotonic, events inside their scenes, narration inside visual slots"}
+{"t": 487.85, "agent": "sync", "event": "done", "message": "timeline 51.56s (1289 frames), 17 captions, 32 animation events; 17 cued to spoken words, median start lag 0 ms"}
+{"t": 487.85, "agent": "renderer", "event": "start", "message": "rendering whiteboard video 51.56s @ 25fps 1280x720"}
+{"t": 496.27, "agent": "renderer", "event": "done", "message": "wrote final.mp4 (3.0 MB)"}
+{"t": 496.46, "agent": "final_qa", "event": "probe", "message": "video 51.560s, audio 51.563s, drift 3 ms, decode OK"}
+{"t": 517.9, "agent": "llm", "event": "call", "message": "final_qa.frames", "model": "google/gemini-3.1-pro-preview", "cost": 0.043858, "latency": 21.44}
+{"t": 517.9, "agent": "final_qa", "event": "frame", "message": "scene 1: ok"}
+{"t": 517.9, "agent": "final_qa", "event": "frame", "message": "scene 2: FLAG — Broken Devanagari text shaping on the label pointing to the stoma, where 'रंध्र' appears corrupted and merged with 'कार्बन डाइऑक्साइड'."}
+{"t": 517.9, "agent": "final_qa", "event": "frame", "message": "scene 3: ok"}
+{"t": 517.9, "agent": "final_qa", "event": "frame", "message": "scene 4: ok"}
+{"t": 517.9, "agent": "final_qa", "event": "frame", "message": "scene 5: ok"}
+{"t": 517.9, "agent": "final_qa", "event": "verdict", "message": "FAIL — scene 2: caption/render issue: Broken Devanagari text shaping on the label pointing to the stoma, where 'रंध्र' appears corrupted and merged with 'कार्बन डाइऑक्साइड'."}
+{"t": 517.9, "agent": "orchestrator", "event": "warn", "message": "final QA not fully satisfied: scene 2: caption/render issue: Broken Devanagari text shaping on the label pointing to the stoma, where 'रंध्र' appears corrupted and merged with 'कार्बन डाइऑक्साइड'."}
+{"t": 517.91, "agent": "orchestrator", "event": "done", "message": "output/class7-science-photosynthesis-hi-20260924-170458/final.mp4 (51.6s) — 42 API calls, $1.852, 518s wall time"}
+{"t": 0.02, "agent": "orchestrator", "event": "start", "message": "Class 7 → Science → Photosynthesis (narration language: Hindi)", "run_dir": "output/class7-science-photosynthesis-hi-20260924-170458"}
+{"t": 0.02, "agent": "orchestrator", "event": "models", "message": "preset 'best': planner=anthropic/claude-opus-5.5, writer=anthropic/claude-opus-5.5, reviewer=openai/gpt-5.5, vision=google/gemini-3.1-pro-preview, audio=google/gemini-3.1-pro-preview, image=google/gemini-3-pro-image", "models": {"planner": "anthropic/claude-opus-5.5", "writer": "anthropic/claude-opus-5.5", "reviewer": "openai/gpt-5.5", "vision": "google/gemini-3.1-pro-preview", "audio": "google/gemini-3.1-pro-preview", "image": "google/gemini-3-pro-image"}}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded plan.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded approved script.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded valid storyboard.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "fanout", "message": "visual agent and narrator agent running in parallel"}
+{"t": 0.02, "agent": "narrator", "event": "cache", "message": "scene 1: narration unchanged, reusing audio"}
+{"t": 0.03, "agent": "visual", "event": "start", "message": "drawing 5 illustrations with google/gemini-3-pro-image"}
+{"t": 0.03, "agent": "narrator", "event": "cache", "message": "scene 2: narration unchanged, reusing audio"}
+{"t": 0.03, "agent": "narrator", "event": "cache", "message": "scene 3: narration unchanged, reusing audio"}
+{"t": 0.03, "agent": "narrator", "event": "cache", "message": "scene 4: narration unchanged, reusing audio"}
+{"t": 0.03, "agent": "narrator", "event": "cache", "message": "scene 5: narration unchanged, reusing audio"}
+{"t": 0.03, "agent": "visual", "event": "cache", "message": "scene 2: approved drawing unchanged — reusing"}
+{"t": 0.03, "agent": "orchestrator", "event": "duration", "message": "round 1: 51.6s is inside 31.5-58.5s ✓"}
+{"t": 21.76, "agent": "llm", "event": "call", "message": "visual.scene1.try1", "model": "google/gemini-3-pro-image", "cost": 0.138872, "latency": 21.73}
+{"t": 34.97, "agent": "llm", "event": "call", "message": "visual_critic.scene1", "model": "google/gemini-3.1-pro-preview", "cost": 0.01664, "latency": 13.09}
+{"t": 34.97, "agent": "visual_critic", "event": "verdict", "message": "scene 1 attempt 1: REJECTED score=5/10 — The child is holding and eating a large chocolate chip cookie instead of a round golden-brown roti, which contradicts the specific Hindi narration.", "score": 5}
+{"t": 42.44, "agent": "llm", "event": "call", "message": "visual.scene3.try1", "model": "google/gemini-3-pro-image", "cost": 0.138588, "latency": 20.68}
+{"t": 51.32, "agent": "llm", "event": "call", "message": "visual_critic.scene3", "model": "google/gemini-3.1-pro-preview", "cost": 0.011726, "latency": 8.76}
+{"t": 56.96, "agent": "llm", "event": "call", "message": "grounder.scene3", "model": "google/gemini-3.1-pro-preview", "cost": 0.006658, "latency": 5.63}
+{"t": 56.96, "agent": "grounder", "event": "locate", "message": "scene 3: located 6/6 parts"}
+{"t": 56.96, "agent": "visual_critic", "event": "verdict", "message": "scene 3 attempt 1: APPROVED score=10/10", "score": 10}
+{"t": 57.04, "agent": "visual", "event": "select", "message": "scene 3: using scene_3_try1.png"}
+{"t": 65.45, "agent": "llm", "event": "call", "message": "visual.scene4.try1", "model": "google/gemini-3-pro-image", "cost": 0.138668, "latency": 23.01}
+{"t": 74.62, "agent": "llm", "event": "call", "message": "visual_critic.scene4", "model": "google/gemini-3.1-pro-preview", "cost": 0.011054, "latency": 9.06}
+{"t": 79.23, "agent": "llm", "event": "call", "message": "grounder.scene4", "model": "google/gemini-3.1-pro-preview", "cost": 0.00539, "latency": 4.6}
+{"t": 79.23, "agent": "grounder", "event": "locate", "message": "scene 4: located 4/4 parts"}
+{"t": 79.23, "agent": "visual_critic", "event": "verdict", "message": "scene 4 attempt 1: APPROVED score=10/10", "score": 10}
+{"t": 79.29, "agent": "visual", "event": "select", "message": "scene 4: using scene_4_try1.png"}
+{"t": 84.7, "agent": "llm", "event": "call", "message": "visual.scene5.try1", "model": "google/gemini-3-pro-image", "cost": 0.138436, "latency": 19.24}
+{"t": 92.96, "agent": "llm", "event": "call", "message": "visual_critic.scene5", "model": "google/gemini-3.1-pro-preview", "cost": 0.010102, "latency": 8.19}
+{"t": 96.99, "agent": "llm", "event": "call", "message": "grounder.scene5", "model": "google/gemini-3.1-pro-preview", "cost": 0.004774, "latency": 4.02}
+{"t": 96.99, "agent": "grounder", "event": "locate", "message": "scene 5: located 2/2 parts"}
+{"t": 96.99, "agent": "visual_critic", "event": "verdict", "message": "scene 5 attempt 1: APPROVED score=10/10", "score": 10}
+{"t": 97.03, "agent": "visual", "event": "select", "message": "scene 5: using scene_5_try1.png"}
+{"t": 105.62, "agent": "llm", "event": "call", "message": "visual.scene1.try2", "model": "google/gemini-3-pro-image", "cost": 0.139428, "latency": 20.92}
+{"t": 113.87, "agent": "llm", "event": "call", "message": "visual_critic.scene1", "model": "google/gemini-3.1-pro-preview", "cost": 0.010028, "latency": 8.14}
+{"t": 119.46, "agent": "llm", "event": "call", "message": "grounder.scene1", "model": "google/gemini-3.1-pro-preview", "cost": 0.007702, "latency": 5.58}
+{"t": 119.46, "agent": "grounder", "event": "locate", "message": "scene 1: located 5/5 parts"}
+{"t": 119.46, "agent": "visual_critic", "event": "verdict", "message": "scene 1 attempt 2: APPROVED score=10/10", "score": 10}
+{"t": 119.54, "agent": "visual", "event": "select", "message": "scene 1: using scene_1_try2.png"}
+{"t": 119.58, "agent": "sync", "event": "calibrate", "message": "scene 1: TTS timestamps shifted +190 ms to match audible speech"}
+{"t": 119.6, "agent": "sync", "event": "calibrate", "message": "scene 2: TTS timestamps shifted +147 ms to match audible speech"}
+{"t": 119.61, "agent": "sync", "event": "calibrate", "message": "scene 3: TTS timestamps shifted +165 ms to match audible speech"}
+{"t": 119.62, "agent": "sync", "event": "calibrate", "message": "scene 4: TTS timestamps shifted +148 ms to match audible speech"}
+{"t": 119.63, "agent": "sync", "event": "calibrate", "message": "scene 5: TTS timestamps shifted +95 ms to match audible speech"}
+{"t": 119.63, "agent": "sync", "event": "validate", "message": "timeline OK: captions monotonic, events inside their scenes, narration inside visual slots"}
+{"t": 119.64, "agent": "sync", "event": "done", "message": "timeline 51.56s (1289 frames), 17 captions, 32 animation events; 17 cued to spoken words, median start lag 0 ms"}
+{"t": 119.64, "agent": "renderer", "event": "start", "message": "rendering whiteboard video 51.56s @ 25fps 1280x720"}
+{"t": 127.92, "agent": "renderer", "event": "done", "message": "wrote final.mp4 (2.9 MB)"}
+{"t": 128.12, "agent": "final_qa", "event": "probe", "message": "video 51.560s, audio 51.563s, drift 3 ms, decode OK"}
+{"t": 155.13, "agent": "llm", "event": "call", "message": "final_qa.frames", "model": "google/gemini-3.1-pro-preview", "cost": 0.047218, "latency": 27.01}
+{"t": 155.13, "agent": "final_qa", "event": "frame", "message": "scene 1: ok"}
+{"t": 155.13, "agent": "final_qa", "event": "frame", "message": "scene 2: ok"}
+{"t": 155.13, "agent": "final_qa", "event": "frame", "message": "scene 3: ok"}
+{"t": 155.13, "agent": "final_qa", "event": "frame", "message": "scene 4: ok"}
+{"t": 155.13, "agent": "final_qa", "event": "frame", "message": "scene 5: ok"}
+{"t": 155.13, "agent": "final_qa", "event": "verdict", "message": "PASS"}
+{"t": 155.14, "agent": "orchestrator", "event": "done", "message": "output/class7-science-photosynthesis-hi-20260924-170458/final.mp4 (51.6s) — 15 API calls, $0.825, 155s wall time"}
+{"t": 0.02, "agent": "orchestrator", "event": "start", "message": "Class 7 → Science → Photosynthesis (narration language: Hindi)", "run_dir": "output/class7-science-photosynthesis-hi-20260924-170458"}
+{"t": 0.02, "agent": "orchestrator", "event": "models", "message": "preset 'best': planner=anthropic/claude-opus-5.5, writer=anthropic/claude-opus-5.5, reviewer=openai/gpt-5.5, vision=google/gemini-3.1-pro-preview, audio=google/gemini-3.1-pro-preview, image=google/gemini-3-pro-image", "models": {"planner": "anthropic/claude-opus-5.5", "writer": "anthropic/claude-opus-5.5", "reviewer": "openai/gpt-5.5", "vision": "google/gemini-3.1-pro-preview", "audio": "google/gemini-3.1-pro-preview", "image": "google/gemini-3-pro-image"}}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded plan.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded approved script.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "resume", "message": "loaded valid storyboard.json"}
+{"t": 0.02, "agent": "orchestrator", "event": "fanout", "message": "visual agent and narrator agent running in parallel"}
+{"t": 0.02, "agent": "narrator", "event": "cache", "message": "scene 1: narration unchanged, reusing audio"}
+{"t": 0.02, "agent": "visual", "event": "start", "message": "drawing 5 illustrations with google/gemini-3-pro-image"}
+{"t": 0.02, "agent": "narrator", "event": "cache", "message": "scene 3: narration unchanged, reusing audio"}
+{"t": 0.02, "agent": "narrator", "event": "cache", "message": "scene 2: narration unchanged, reusing audio"}
+{"t": 0.02, "agent": "narrator", "event": "cache", "message": "scene 4: narration unchanged, reusing audio"}
+{"t": 0.02, "agent": "narrator", "event": "cache", "message": "scene 5: narration unchanged, reusing audio"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 1: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 3: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 2: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 4: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "visual", "event": "cache", "message": "scene 5: approved drawing unchanged — reusing"}
+{"t": 0.02, "agent": "orchestrator", "event": "duration", "message": "round 1: 51.6s is inside 31.5-58.5s ✓"}
+{"t": 0.06, "agent": "sync", "event": "calibrate", "message": "scene 1: TTS timestamps shifted +190 ms to match audible speech"}
+{"t": 0.07, "agent": "sync", "event": "calibrate", "message": "scene 2: TTS timestamps shifted +147 ms to match audible speech"}
+{"t": 0.08, "agent": "sync", "event": "calibrate", "message": "scene 3: TTS timestamps shifted +165 ms to match audible speech"}
+{"t": 0.09, "agent": "sync", "event": "calibrate", "message": "scene 4: TTS timestamps shifted +148 ms to match audible speech"}
+{"t": 0.1, "agent": "sync", "event": "calibrate", "message": "scene 5: TTS timestamps shifted +95 ms to match audible speech"}
+{"t": 0.1, "agent": "sync", "event": "validate", "message": "timeline OK: captions monotonic, events inside their scenes, narration inside visual slots"}
+{"t": 0.11, "agent": "sync", "event": "done", "message": "timeline 51.56s (1289 frames), 17 captions, 32 animation events; 17 cued to spoken words, median start lag 0 ms"}
+{"t": 0.11, "agent": "renderer", "event": "start", "message": "rendering whiteboard video 51.56s @ 25fps 1280x720"}
+{"t": 8.45, "agent": "renderer", "event": "done", "message": "wrote final.mp4 (3.2 MB)"}
+{"t": 8.64, "agent": "final_qa", "event": "probe", "message": "video 51.560s, audio 51.563s, drift 3 ms, decode OK"}
+{"t": 41.58, "agent": "llm", "event": "call", "message": "final_qa.frames", "model": "google/gemini-3.1-pro-preview", "cost": 0.0539578, "latency": 32.93}
+{"t": 41.58, "agent": "final_qa", "event": "frame", "message": "scene 1: ok"}
+{"t": 41.58, "agent": "final_qa", "event": "frame", "message": "scene 2: ok"}
+{"t": 41.58, "agent": "final_qa", "event": "frame", "message": "scene 3: ok"}
+{"t": 41.58, "agent": "final_qa", "event": "frame", "message": "scene 4: ok"}
+{"t": 41.58, "agent": "final_qa", "event": "frame", "message": "scene 5: ok"}
+{"t": 41.58, "agent": "final_qa", "event": "verdict", "message": "PASS"}
+{"t": 41.59, "agent": "orchestrator", "event": "done", "message": "output/class7-science-photosynthesis-hi-20260924-170458/final.mp4 (51.6s) — 1 API calls, $0.054, 42s wall time"}

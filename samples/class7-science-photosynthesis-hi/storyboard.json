@@ -1,0 +1,262 @@
+{
+ "scenes": [
+  {
+   "id": 1,
+   "layout": "diagram",
+   "elements": [
+    {
+     "id": "child",
+     "description": "A smiling school child sitting on the left side of the frame"
+    },
+    {
+     "id": "roti",
+     "description": "A round golden-brown roti held in the child's hand"
+    },
+    {
+     "id": "plant",
+     "description": "A healthy green potted plant with broad leaves on a sunny windowsill on the right"
+    },
+    {
+     "id": "thought_bubble",
+     "description": "A cloud-shaped thought bubble above the plant containing an empty white plate"
+    },
+    {
+     "id": "sun_window",
+     "description": "A bright yellow sun visible through the window behind the plant"
+    }
+   ],
+   "image_prompt": "Clean flat vector textbook illustration with bold dark outlines, simple bright greens, blues and yellows, pure white background, no text. On the left a smiling child eats a round roti. On the right, well separated, a healthy green potted plant sits on a windowsill with a bright yellow sun shining through the window. Above the plant floats a cloud-shaped thought bubble containing an empty plate.",
+   "annotations": [
+    {
+     "kind": "highlight",
+     "target": "plant",
+     "source": null,
+     "text": "",
+     "cue": "नहीं",
+     "color": "green"
+    },
+    {
+     "kind": "label",
+     "target": "plant",
+     "source": null,
+     "text": "प्रकाश संश्लेषण",
+     "cue": "संश्लेषण",
+     "color": "green"
+    },
+    {
+     "kind": "arrow",
+     "target": "plant",
+     "source": "sun_window",
+     "text": "धूप",
+     "cue": "खुद बनाता",
+     "color": "orange"
+    }
+   ],
+   "board_lines": []
+  },
+  {
+   "id": 2,
+   "layout": "diagram",
+   "elements": [
+    {
+     "id": "leaf",
+     "description": "A large single bright green leaf with visible veins on the left half"
+    },
+    {
+     "id": "magnified_inset",
+     "description": "A circular magnified inset on the right connected to the leaf by thin lines"
+    },
+    {
+     "id": "chlorophyll_cells",
+     "description": "Inside the inset, rectangular plant cells packed with small green oval chloroplasts"
+    },
+    {
+     "id": "stoma",
+     "description": "Inside the inset at the bottom, a tiny pore flanked by two bean-shaped guard cells"
+    }
+   ],
+   "image_prompt": "Clean flat vector textbook illustration with bold dark outlines, bright greens, pure white background, no text. A large green leaf with veins on the left. A circular magnified inset on the right, linked to the leaf surface by thin lines, shows rectangular cells filled with green oval chloroplasts in the upper part and, clearly separated at the bottom, a single stoma pore between two bean-shaped guard cells.",
+   "annotations": [
+    {
+     "kind": "label",
+     "target": "chlorophyll_cells",
+     "source": null,
+     "text": "क्लोरोफिल • Chlorophyll",
+     "cue": "हरा क्लोरोफिल",
+     "color": "green"
+    },
+    {
+     "kind": "arrow",
+     "target": "leaf",
+     "source": "top",
+     "text": "धूप",
+     "cue": "रोशनी पकड़ता",
+     "color": "orange"
+    },
+    {
+     "kind": "label",
+     "target": "stoma",
+     "source": null,
+     "text": "रंध्र • Stomata",
+     "cue": "नन्हे छिद्र,",
+     "color": "purple"
+    },
+    {
+     "kind": "arrow",
+     "target": "stoma",
+     "source": "right",
+     "text": "कार्बन डाइऑक्साइड • CO₂",
+     "cue": "कार्बन डाइऑक्साइड",
+     "color": "gray"
+    }
+   ],
+   "board_lines": []
+  },
+  {
+   "id": 3,
+   "layout": "diagram",
+   "elements": [
+    {
+     "id": "sun",
+     "description": "A bright yellow sun in the top-left corner with yellow rays pointing to the leaves"
+    },
+    {
+     "id": "leaf",
+     "description": "Broad green leaves at the top of the plant"
+    },
+    {
+     "id": "stem",
+     "description": "A straight green stem in the middle of the plant"
+    },
+    {
+     "id": "roots",
+     "description": "Brown branching roots spreading in brown soil at the bottom"
+    },
+    {
+     "id": "water_arrows",
+     "description": "Blue upward arrows running from the roots up along the stem to the leaves"
+    },
+    {
+     "id": "co2_arrows",
+     "description": "Grey arrows coming from the air on the right into a leaf"
+    }
+   ],
+   "image_prompt": "Clean flat vector textbook illustration with bold dark outlines, bright greens, blues and yellows, pure white background, no text. A whole plant standing in brown soil in the centre: branching roots below ground, a straight green stem, broad leaves on top. A yellow sun in the top-left corner sends rays to the leaves. Blue arrows rise from the roots up the stem to the leaves. Grey arrows from the air on the right point into a leaf. All parts large and well separated.",
+   "annotations": [
+    {
+     "kind": "arrow",
+     "target": "leaf",
+     "source": "roots",
+     "text": "पानी",
+     "cue": "पत्ती तक",
+     "color": "blue"
+    },
+    {
+     "kind": "arrow",
+     "target": "leaf",
+     "source": "right",
+     "text": "कार्बन डाइऑक्साइड • CO₂",
+     "cue": "कार्बन डाइऑक्साइड",
+     "color": "gray"
+    },
+    {
+     "kind": "arrow",
+     "target": "leaf",
+     "source": "sun",
+     "text": "धूप",
+     "cue": "सूरज और",
+     "color": "orange"
+    },
+    {
+     "kind": "label",
+     "target": "leaf",
+     "source": null,
+     "text": "पत्ती • Leaf",
+     "cue": "भी चाहिए",
+     "color": "green"
+    }
+   ],
+   "board_lines": []
+  },
+  {
+   "id": 4,
+   "layout": "diagram",
+   "elements": [
+    {
+     "id": "leaf",
+     "description": "A large green leaf on the left"
+    },
+    {
+     "id": "glucose_symbol",
+     "description": "A small white sugar cube symbol drawn inside the leaf"
+    },
+    {
+     "id": "oxygen_arrows",
+     "description": "Green arrows with small bubbles flowing out of the leaf toward the right"
+    },
+    {
+     "id": "person",
+     "description": "A person on the right breathing in, facing the leaf"
+    }
+   ],
+   "image_prompt": "Clean flat vector textbook illustration with bold dark outlines, bright greens and blues, pure white background, no text. A large green leaf on the left with a small white sugar cube symbol clearly visible inside it. Green arrows with small bubbles flow from the leaf to the right toward a person who is calmly breathing in. Leaf and person well separated.",
+   "annotations": [
+    {
+     "kind": "label",
+     "target": "glucose_symbol",
+     "source": null,
+     "text": "ग्लूकोज़ • Glucose",
+     "cue": "जो स्टार्च",
+     "color": "purple"
+    },
+    {
+     "kind": "highlight",
+     "target": "glucose_symbol",
+     "source": null,
+     "text": "",
+     "cue": "जमा होता",
+     "color": "purple"
+    },
+    {
+     "kind": "arrow",
+     "target": "person",
+     "source": "leaf",
+     "text": "ऑक्सीजन",
+     "cue": "ऑक्सीजन बाहर",
+     "color": "green"
+    }
+   ],
+   "board_lines": []
+  },
+  {
+   "id": 5,
+   "layout": "board",
+   "elements": [
+    {
+     "id": "sun",
+     "description": "A small bright yellow sun with short rays"
+    },
+    {
+     "id": "leaf",
+     "description": "A small green leaf below the sun"
+    }
+   ],
+   "image_prompt": "Clean flat vector textbook illustration with bold dark outlines, pure white background, no text. A small bright yellow sun with rays above a small green leaf, simple and centred.",
+   "annotations": [],
+   "board_lines": [
+    {
+     "text": "कार्बन डाइऑक्साइड + पानी",
+     "cue": "प्लस पानी,"
+    },
+    {
+     "text": "(धूप + क्लोरोफिल)",
+     "cue": "और क्लोरोफिल"
+    },
+    {
+     "text": "→ ग्लूकोज़ + ऑक्सीजन",
+     "cue": "ग्लूकोज़ प्लस"
+    }
+   ]
+  }
+ ]
+}

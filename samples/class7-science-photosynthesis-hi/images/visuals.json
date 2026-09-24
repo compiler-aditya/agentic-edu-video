@@ -1,0 +1,390 @@
+{
+ "1": {
+  "source": "cached",
+  "score": 10,
+  "approved": true,
+  "key": "c4f0d26911e8",
+  "grounding": {
+   "child": {
+    "id": "child",
+    "found": true,
+    "box_2d": [
+     203,
+     140,
+     935,
+     396
+    ],
+    "point": [
+     570,
+     268
+    ]
+   },
+   "roti": {
+    "id": "roti",
+    "found": true,
+    "box_2d": [
+     425,
+     234,
+     551,
+     328
+    ],
+    "point": [
+     488,
+     281
+    ]
+   },
+   "plant": {
+    "id": "plant",
+    "found": true,
+    "box_2d": [
+     332,
+     580,
+     562,
+     751
+    ],
+    "point": [
+     466,
+     666
+    ]
+   },
+   "thought_bubble": {
+    "id": "thought_bubble",
+    "found": true,
+    "box_2d": [
+     55,
+     627,
+     330,
+     893
+    ],
+    "point": [
+     192,
+     760
+    ]
+   },
+   "sun_window": {
+    "id": "sun_window",
+    "found": true,
+    "box_2d": [
+     148,
+     459,
+     343,
+     609
+    ],
+    "point": [
+     245,
+     534
+    ]
+   }
+  },
+  "attempts": [
+   {
+    "attempt": 1,
+    "image": "scene_1_try1.png",
+    "score": 5,
+    "approved": false,
+    "problems": [
+     "The child is holding and eating a large chocolate chip cookie instead of a round golden-brown roti, which contradicts the specific Hindi narration."
+    ]
+   },
+   {
+    "attempt": 2,
+    "image": "scene_1_try2.png",
+    "score": 10,
+    "approved": true,
+    "problems": []
+   }
+  ]
+ },
+ "2": {
+  "source": "cached",
+  "score": 10,
+  "approved": true,
+  "key": "47e02e3429e2",
+  "grounding": {
+   "leaf": {
+    "id": "leaf",
+    "found": true,
+    "box_2d": [
+     93,
+     47,
+     907,
+     410
+    ],
+    "point": [
+     480,
+     147
+    ]
+   },
+   "magnified_inset": {
+    "id": "magnified_inset",
+    "found": true,
+    "box_2d": [
+     179,
+     485,
+     852,
+     958
+    ],
+    "point": [
+     515,
+     721
+    ]
+   },
+   "chlorophyll_cells": {
+    "id": "chlorophyll_cells",
+    "found": true,
+    "box_2d": [
+     181,
+     488,
+     638,
+     956
+    ],
+    "point": [
+     410,
+     722
+    ]
+   },
+   "stoma": {
+    "id": "stoma",
+    "found": true,
+    "box_2d": [
+     629,
+     666,
+     807,
+     786
+    ],
+    "point": [
+     718,
+     726
+    ]
+   }
+  },
+  "attempts": [
+   {
+    "attempt": 1,
+    "image": "scene_2_fix1.png",
+    "score": 10,
+    "approved": true,
+    "problems": []
+   }
+  ]
+ },
+ "3": {
+  "source": "cached",
+  "score": 10,
+  "approved": true,
+  "key": "e6cfa8dffab8",
+  "grounding": {
+   "sun": {
+    "id": "sun",
+    "found": true,
+    "box_2d": [
+     0,
+     25,
+     493,
+     382
+    ],
+    "point": [
+     131,
+     125
+    ]
+   },
+   "leaf": {
+    "id": "leaf",
+    "found": true,
+    "box_2d": [
+     117,
+     286,
+     551,
+     792
+    ],
+    "point": [
+     257,
+     640
+    ]
+   },
+   "stem": {
+    "id": "stem",
+    "found": true,
+    "box_2d": [
+     304,
+     495,
+     704,
+     572
+    ],
+    "point": [
+     600,
+     539
+    ]
+   },
+   "roots": {
+    "id": "roots",
+    "found": true,
+    "box_2d": [
+     691,
+     298,
+     962,
+     756
+    ],
+    "point": [
+     826,
+     527
+    ]
+   },
+   "water_arrows": {
+    "id": "water_arrows",
+    "found": true,
+    "box_2d": [
+     276,
+     432,
+     821,
+     629
+    ],
+    "point": [
+     548,
+     526
+    ]
+   },
+   "co2_arrows": {
+    "id": "co2_arrows",
+    "found": true,
+    "box_2d": [
+     217,
+     643,
+     552,
+     934
+    ],
+    "point": [
+     384,
+     838
+    ]
+   }
+  },
+  "attempts": [
+   {
+    "attempt": 1,
+    "image": "scene_3_try1.png",
+    "score": 10,
+    "approved": true,
+    "problems": []
+   }
+  ]
+ },
+ "4": {
+  "source": "cached",
+  "score": 10,
+  "approved": true,
+  "key": "a77c3119a189",
+  "grounding": {
+   "leaf": {
+    "id": "leaf",
+    "found": true,
+    "box_2d": [
+     259,
+     42,
+     728,
+     314
+    ],
+    "point": [
+     333,
+     260
+    ]
+   },
+   "glucose_symbol": {
+    "id": "glucose_symbol",
+    "found": true,
+    "box_2d": [
+     436,
+     124,
+     561,
+     208
+    ],
+    "point": [
+     498,
+     166
+    ]
+   },
+   "oxygen_arrows": {
+    "id": "oxygen_arrows",
+    "found": true,
+    "box_2d": [
+     363,
+     303,
+     689,
+     662
+    ],
+    "point": [
+     526,
+     482
+    ]
+   },
+   "person": {
+    "id": "person",
+    "found": true,
+    "box_2d": [
+     224,
+     757,
+     774,
+     958
+    ],
+    "point": [
+     499,
+     857
+    ]
+   }
+  },
+  "attempts": [
+   {
+    "attempt": 1,
+    "image": "scene_4_try1.png",
+    "score": 10,
+    "approved": true,
+    "problems": []
+   }
+  ]
+ },
+ "5": {
+  "source": "cached",
+  "score": 10,
+  "approved": true,
+  "key": "05905894aa8d",
+  "grounding": {
+   "sun": {
+    "id": "sun",
+    "found": true,
+    "box_2d": [
+     95,
+     277,
+     528,
+     604
+    ],
+    "point": [
+     311,
+     440
+    ]
+   },
+   "leaf": {
+    "id": "leaf",
+    "found": true,
+    "box_2d": [
+     534,
+     441,
+     909,
+     723
+    ],
+    "point": [
+     721,
+     582
+    ]
+   }
+  },
+  "attempts": [
+   {
+    "attempt": 1,
+    "image": "scene_5_try1.png",
+    "score": 10,
+    "approved": true,
+    "problems": []
+   }
+  ]
+ }
+}

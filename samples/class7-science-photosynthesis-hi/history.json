@@ -1,0 +1,130 @@
+{
+ "script_reviews": [
+  {
+   "round": 1,
+   "approved": false,
+   "score": 7,
+   "summary": "Script is mostly scientifically sound, age-appropriate, and flows well for Class 7. It explains that leaves make food using water, carbon dioxide, sunlight and chlorophyll, and produce glucose and oxygen. However, the required word equation is not actually shown/written, so one learning objective is incomplete. A few Hindi lines can also be made more precise and smoother for TTS.",
+   "issues": [
+    {
+     "scene_id": 5,
+     "severity": "major",
+     "category": "coherence",
+     "problem": "The learning objective asks students to write the word equation for photosynthesis, but the scene only states it in a sentence. It does not present the equation format with reactants, products, plus signs and an arrow.",
+     "fix": "Add the word equation explicitly, for example: “शब्द समीकरण है: कार्बन डाइऑक्साइड + पानी —सूर्य का प्रकाश और क्लोरोफिल की उपस्थिति में→ ग्लूकोज़ + ऑक्सीजन।”"
+    },
+    {
+     "scene_id": 2,
+     "severity": "minor",
+     "category": "factual",
+     "problem": "“स्टोमेटा, हवा अंदर लेते हैं” is a little misleading because stomata are openings that allow gas exchange; they do not actively ‘take in’ air. The key gas for photosynthesis is carbon dioxide.",
+     "fix": "Rewrite as: “पत्ती पर नन्हे छिद्र, जिन्हें स्टोमेटा कहते हैं, हवा से कार्बन डाइऑक्साइड अंदर आने देते हैं।”"
+    },
+    {
+     "scene_id": 2,
+     "severity": "minor",
+     "category": "language",
+     "problem": "“पत्ती पौधे का भोजन कारखाना है” is understandable but slightly unnatural in Hindi.",
+     "fix": "Use a smoother phrase: “पत्ती पौधे की भोजन बनाने की फैक्ट्री है” or “पत्तियाँ पौधे की भोजन फैक्ट्रियाँ हैं।”"
+    },
+    {
+     "scene_id": 5,
+     "severity": "minor",
+     "category": "language",
+     "problem": "“कार्बन डाइऑक्साइड और पानी, धूप और क्लोरोफिल से, ग्लूकोज़ और ऑक्सीजन बनाते हैं” is grammatically a bit awkward; it sounds as if the materials themselves actively make the products.",
+     "fix": "Rewrite as: “प्रकाश संश्लेषण में कार्बन डाइऑक्साइड और पानी, सूर्य के प्रकाश और क्लोरोफिल की मदद से, ग्लूकोज़ और ऑक्सीजन में बदलते हैं।”"
+    }
+   ]
+  },
+  {
+   "round": 2,
+   "approved": false,
+   "score": 8,
+   "summary": "Script is scientifically sound for Class 7 and covers all learning objectives, including plants making their own food, leaves as food factories, required inputs, products, and the word equation. The previous major issue is essentially fixed because Scene 5 now gives the equation structure with reactants, arrow, conditions, and products. Only minor language/presentation polishing is needed for smoother TTS and clearer equation reading.",
+   "issues": [
+    {
+     "scene_id": 5,
+     "severity": "major",
+     "category": "length",
+     "problem": "24 words vs target 13",
+     "fix": "rewrite to about 13 words"
+    },
+    {
+     "scene_id": 5,
+     "severity": "minor",
+     "category": "language",
+     "problem": "“कार्बन डाइऑक्साइड धन पानी” is understandable but sounds a little unnatural/ambiguous in spoken Hindi for a TTS video. Students may understand “धन” as ‘positive’ rather than the plus sign unless the equation is shown visually.",
+     "fix": "Say and show the equation more clearly: “कार्बन डाइऑक्साइड + पानी — सूर्य के प्रकाश और क्लोरोफिल की उपस्थिति में → ग्लूकोज़ + ऑक्सीजन।” In narration, use “प्लस” or “जोड़” instead of only “धन”."
+    },
+    {
+     "scene_id": 3,
+     "severity": "minor",
+     "category": "coherence",
+     "problem": "The scene title asks “क्या-क्या चाहिए?”, but the narration lists water, carbon dioxide, and sunlight; chlorophyll was mentioned in the previous scene, but not repeated here. Since the objective explicitly includes chlorophyll, repeating it would make the list complete.",
+     "fix": "Add a short line such as: “इन सबके साथ पत्ती में मौजूद क्लोरोफिल भी जरूरी है।”"
+    }
+   ]
+  },
+  {
+   "round": 3,
+   "approved": true,
+   "score": 9,
+   "summary": "Script is scientifically sound for Class 7, age-appropriate, and covers all listed objectives: plants make their own food, leaves as food factories, required materials/conditions, products, and the word equation. The previous length issue in Scene 5 is fixed. Only a small clarity improvement is suggested for making the word equation sound more complete when read aloud.",
+   "issues": [
+    {
+     "scene_id": 5,
+     "severity": "minor",
+     "category": "language",
+     "problem": "The word equation is correct in content, but the narration is a sentence fragment and may sound slightly incomplete in TTS: “कार्बन डाइऑक्साइड प्लस पानी...”",
+     "fix": "Rewrite as a complete spoken equation, for example: “कार्बन डाइऑक्साइड प्लस पानी, धूप और क्लोरोफिल की मदद से, ग्लूकोज़ और ऑक्सीजन बनाते हैं।” or show/read it with an arrow: “कार्बन डाइऑक्साइड + पानी —धूप और क्लोरोफिल— ग्लूकोज़ + ऑक्सीजन।”"
+    }
+   ]
+  }
+ ],
+ "duration_rounds": [
+  {
+   "round": 1,
+   "total": 58.54,
+   "scenes": {
+    "1": 10.49,
+    "2": 13.99,
+    "3": 12.58,
+    "4": 9.31,
+    "5": 7.37
+   }
+  },
+  {
+   "round": 2,
+   "total": 51.55,
+   "scenes": {
+    "1": 8.06,
+    "2": 12.5,
+    "3": 11.42,
+    "4": 7.97,
+    "5": 6.79
+   }
+  },
+  {
+   "round": 1,
+   "total": 51.55,
+   "scenes": {
+    "1": 8.06,
+    "2": 12.5,
+    "3": 11.42,
+    "4": 7.97,
+    "5": 6.79
+   }
+  },
+  {
+   "round": 1,
+   "total": 51.55,
+   "scenes": {
+    "1": 8.06,
+    "2": 12.5,
+    "3": 11.42,
+    "4": 7.97,
+    "5": 6.79
+   }
+  }
+ ]
+}
