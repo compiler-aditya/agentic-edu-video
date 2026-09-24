@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1040" width="1280" height="1040" font-family="Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d9480f"/>
+    </marker>
+    <style>
+      .t { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #334155; }
+      .l { font-size: 11.5px; fill: #d9480f; font-weight: 600; }
+      .g { font-size: 11.5px; fill: #475569; }
+      .llm  { fill: #e7f0ff; stroke: #3b6fd8; stroke-width: 1.5; }
+      .qa   { fill: #fff1e6; stroke: #e8590c; stroke-width: 1.5; }
+      .tool { fill: #e9f7ef; stroke: #2f9e5b; stroke-width: 1.5; }
+      .io   { fill: #f1f5f9; stroke: #64748b; stroke-width: 1.5; }
+      .orch { fill: #1e293b; stroke: #0f172a; stroke-width: 1.5; }
+      .e  { stroke: #475569; stroke-width: 1.6; fill: none; marker-end: url(#a); }
+      .lp { stroke: #d9480f; stroke-width: 1.6; fill: none; stroke-dasharray: 6 4; marker-end: url(#r); }
+    </style>
+  </defs>
+  <rect width="1280" height="1040" fill="#ffffff"/>
+
+  <text x="40" y="44" font-size="22" font-weight="800" fill="#0f172a">EduVideo Agent — agentic whiteboard-video workflow</text>
+  <text x="40" y="66" class="g">Every generator is paired with a checker; dashed orange arrows are feedback loops owned by the orchestrator (with retry budgets).</text>
+
+  <!-- input + planner -->
+  <rect x="455" y="86" width="370" height="44" rx="10" class="io"/>
+  <text x="640" y="113" text-anchor="middle" class="t">Class 7 → Science → Photosynthesis · lang = hi</text>
+  <path d="M640 130 V150" class="e"/>
+  <rect x="430" y="152" width="420" height="56" rx="10" class="llm"/>
+  <text x="640" y="175" text-anchor="middle" class="t">Curriculum Planner</text>
+  <text x="640" y="195" text-anchor="middle" class="s">objectives · 4–5 scenes · time budget · diagram idea per scene</text>
+  <path d="M560 208 V238" class="e"/>
+
+  <!-- writer / reviewer -->
+  <rect x="300" y="240" width="340" height="58" rx="10" class="llm"/>
+  <text x="470" y="264" text-anchor="middle" class="t">Script Writer</text>
+  <text x="470" y="284" text-anchor="middle" class="s">Hindi narration + titles, naming the parts to point at</text>
+  <rect x="740" y="240" width="340" height="58" rx="10" class="qa"/>
+  <text x="910" y="264" text-anchor="middle" class="t">Script Reviewer</text>
+  <text x="910" y="284" text-anchor="middle" class="s">independent model family + rule checks</text>
+  <path d="M640 262 H738" class="e"/>
+  <path d="M740 286 C705 314 677 314 642 286" class="lp"/>
+  <text x="691" y="330" text-anchor="middle" class="l">issues → revise (≤3)</text>
+
+  <!-- storyboard -->
+  <path d="M910 298 V338 H640 V350" class="e"/>
+  <rect x="360" y="352" width="560" height="58" rx="10" class="llm"/>
+  <text x="640" y="376" text-anchor="middle" class="t">Storyboard (visual director)</text>
+  <text x="640" y="396" text-anchor="middle" class="s">parts to draw · labels / arrows / highlights / board lines, each tied to a spoken cue</text>
+  <path d="M920 372 C962 372 962 404 922 404" class="lp"/>
+  <text x="968" y="378" class="l">validator: cue verbatim? target</text>
+  <text x="968" y="393" class="l">exists? text fits? → repair (≤3)</text>
+
+  <!-- fan out -->
+  <path d="M640 410 V432 H250 V446" class="e"/>
+  <path d="M640 432 H690 V446" class="e"/>
+  <text x="262" y="426" class="g">visuals and narration run in parallel</text>
+
+  <!-- visual branch -->
+  <rect x="80" y="448" width="340" height="56" rx="10" class="llm"/>
+  <text x="250" y="471" text-anchor="middle" class="t">Visual Agent</text>
+  <text x="250" y="490" text-anchor="middle" class="s">text-free textbook diagram, white background</text>
+  <rect x="80" y="530" width="340" height="56" rx="10" class="qa"/>
+  <text x="250" y="553" text-anchor="middle" class="t">Visual Critic</text>
+  <text x="250" y="572" text-anchor="middle" class="s">relevance · accuracy · every storyboard part present</text>
+  <rect x="80" y="612" width="340" height="56" rx="10" class="qa"/>
+  <text x="250" y="635" text-anchor="middle" class="t">Grounder</text>
+  <text x="250" y="654" text-anchor="middle" class="s">vision model locates each part (box + pointer point)</text>
+  <path d="M200 504 V528" class="e"/>
+  <path d="M200 586 V610" class="e"/>
+  <path d="M320 530 V506" class="lp"/>
+  <text x="330" y="522" class="l">redraw (≤3)</text>
+  <path d="M420 640 H446 V476 H422" class="lp"/>
+  <text x="452" y="560" class="l">part</text>
+  <text x="452" y="574" class="l">missing</text>
+  <text x="452" y="588" class="l">→ redraw</text>
+
+  <!-- audio branch -->
+  <rect x="540" y="448" width="320" height="56" rx="10" class="tool"/>
+  <text x="700" y="471" text-anchor="middle" class="t">Narrator (TTS)</text>
+  <text x="700" y="490" text-anchor="middle" class="s">hi-IN neural voice · word timestamps</text>
+  <rect x="540" y="530" width="320" height="56" rx="10" class="qa"/>
+  <text x="700" y="553" text-anchor="middle" class="t">Audio QA</text>
+  <text x="700" y="572" text-anchor="middle" class="s">timestamp calibration · coverage · ASR round-trip</text>
+  <path d="M650 504 V528" class="e"/>
+  <path d="M760 530 V506" class="lp"/>
+  <text x="770" y="522" class="l">re-take / alt voice</text>
+  <rect x="930" y="530" width="290" height="56" rx="10" class="qa"/>
+  <text x="1075" y="553" text-anchor="middle" class="t">Duration Check</text>
+  <text x="1075" y="572" text-anchor="middle" class="s">measured total must be 30–60 s</text>
+  <path d="M860 558 H928" class="e"/>
+  <path d="M1205 530 V224 H600 V238" class="lp"/>
+  <text x="1196" y="462" text-anchor="end" class="l">too long/short: retime → Writer →</text>
+  <text x="1196" y="477" text-anchor="end" class="l">Reviewer → re-cue storyboard</text>
+  <text x="1196" y="492" text-anchor="end" class="l">(≤3, then TTS rate)</text>
+
+  <!-- join -->
+  <path d="M250 668 V690 H440 V710" class="e"/>
+  <path d="M700 586 V710" class="e"/>
+  <path d="M1075 586 V690 H800 V710" class="e"/>
+
+  <!-- sync / render / qa -->
+  <rect x="300" y="712" width="600" height="56" rx="10" class="tool"/>
+  <text x="600" y="735" text-anchor="middle" class="t">Sync Agent</text>
+  <text x="600" y="754" text-anchor="middle" class="s">calibrated word times → captions · each pen action starts on its cue word</text>
+  <path d="M600 768 V790" class="e"/>
+  <rect x="300" y="792" width="600" height="56" rx="10" class="tool"/>
+  <text x="600" y="815" text-anchor="middle" class="t">Whiteboard Renderer</text>
+  <text x="600" y="834" text-anchor="middle" class="s">pen writes titles · sketch → colour · labels + pointer lines · flowing arrows</text>
+  <path d="M600 848 V870" class="e"/>
+  <rect x="300" y="872" width="600" height="56" rx="10" class="qa"/>
+  <text x="600" y="895" text-anchor="middle" class="t">Final QA</text>
+  <text x="600" y="914" text-anchor="middle" class="s">decode · 30–60 s · A/V drift · vision check: drawing fits, labels point at the right part</text>
+  <path d="M300 900 H40 V476 H78" class="lp"/>
+  <text x="50" y="850" class="l">drawing wrong → redraw</text>
+  <text x="50" y="865" class="l">label off → re-ground</text>
+  <path d="M600 928 V948" class="e"/>
+  <rect x="300" y="950" width="600" height="42" rx="10" class="io"/>
+  <text x="600" y="977" text-anchor="middle" class="t">final.mp4 · captions.srt · storyboard.json · timeline.json · report.md</text>
+
+  <!-- orchestrator -->
+  <rect x="940" y="712" width="300" height="216" rx="12" class="orch"/>
+  <text x="960" y="740" font-size="16" font-weight="800" fill="#ffffff">Orchestrator</text>
+  <text x="960" y="766" font-size="12.5" fill="#cbd5e1">• owns the graph and every loop budget</text>
+  <text x="960" y="789" font-size="12.5" fill="#cbd5e1">• pydantic contracts + JSON self-repair</text>
+  <text x="960" y="812" font-size="12.5" fill="#cbd5e1">• retries with backoff on API errors</text>
+  <text x="960" y="835" font-size="12.5" fill="#cbd5e1">• concurrency cap + cost ceiling</text>
+  <text x="960" y="858" font-size="12.5" fill="#cbd5e1">• fallbacks: alt voice, alt TTS, blank board</text>
+  <text x="960" y="881" font-size="12.5" fill="#cbd5e1">• resume cache (reuses approved work)</text>
+  <text x="960" y="904" font-size="12.5" fill="#cbd5e1">• trace → run_log.jsonl → report.md</text>
+
+  <!-- legend -->
+  <g transform="translate(40,1024)">
+    <rect x="0" y="-12" width="16" height="12" rx="3" class="llm"/><text x="22" y="-2" class="g">LLM generator</text>
+    <rect x="130" y="-12" width="16" height="12" rx="3" class="qa"/><text x="152" y="-2" class="g">checker / QA agent</text>
+    <rect x="285" y="-12" width="16" height="12" rx="3" class="tool"/><text x="307" y="-2" class="g">tool / deterministic</text>
+    <line x1="440" y1="-6" x2="470" y2="-6" class="lp"/><text x="478" y="-2" class="g">feedback loop</text>
+  </g>
+</svg>
